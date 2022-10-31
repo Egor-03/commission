@@ -33,7 +33,7 @@ public class SimpleTest {
 			Assertions.assertTrue(isSomethingUpdated);
 		}
 
-		//@Disabled
+		@Disabled
 		@Test
 		void testDeleteSomething() {
 			System.out.println("======deleteSomething=======");
