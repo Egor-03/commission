@@ -2,8 +2,8 @@ CREATE TABLE persone
 (
    id integer PRIMARY KEY AUTOINCREMENT,
    role_id integer NOT NULL REFERENCES role (id),
-   first name varchar NOT NULL,
-   second name varchar NOT NULL,
+   first_name varchar NOT NULL,
+   second_name varchar NOT NULL,
    patronymic varchar NOT NULL,
    mail varchar NOT NULL UNIQUE
 );
@@ -20,12 +20,12 @@ CREATE TABLE role
 CREATE TABLE subject
 (
    id integer PRIMARY KEY AUTOINCREMENT,
-   subject_name varchar NOT NULL
+   name varchar NOT NULL
 );
 CREATE TABLE state
 (
    id integer PRIMARY KEY AUTOINCREMENT,
-   state_name varchar NOT NULL
+   name varchar NOT NULL
 );
 CREATE TABLE request
 (

@@ -9,58 +9,57 @@ import java.util.List;
 
 import by.grsu.anikevich.comission.db.dao.AbstractDao;
 import by.grsu.anikevich.comission.db.dao.IDao;
-import by.grsu.anikevich.comission.db.model.Role;
+import by.grsu.anikevich.comission.db.model.State;
 
-public class RoleDaoImpl extends AbstractDao implements IDao<Integer, Role> {
+public class StateDaoImpl extends AbstractDao implements IDao<Integer, State>{
+	public static final StateDaoImpl INSTANCE = new StateDaoImpl();
 
-	public static final RoleDaoImpl INSTANCE = new RoleDaoImpl();
-
-	private RoleDaoImpl() {
+	private StateDaoImpl() {
 		super();
 	}
 
 	@Override
-	public void insert(Role entity) {
+	public void insert(State entity) {
 		try (Connection c = createConnection()) {
-			PreparedStatement pstmt = c.prepareStatement("insert into role(name) values(?)");
+			PreparedStatement pstmt = c.prepareStatement("insert into state(name) values(?)");
 			pstmt.setString(1, entity.getName());
 			pstmt.executeUpdate();
-			entity.setId(getGeneratedId(c, "role"));
+			entity.setId(getGeneratedId(c, "state"));
 		} catch (SQLException e) {
-			throw new RuntimeException("can't insert Role entity", e);
+			throw new RuntimeException("can't insert State entity", e);
 		}
 
 	}
 
 	@Override
-	public void update(Role entity) {
+	public void update(State entity) {
 		try (Connection c = createConnection()) {
-			PreparedStatement pstmt = c.prepareStatement("update role set name=?");
+			PreparedStatement pstmt = c.prepareStatement("update state set name=?");
 			pstmt.setString(1, entity.getName());
 			pstmt.executeUpdate();
-			entity.setId(getGeneratedId(c, "role"));
+			entity.setId(getGeneratedId(c, "state"));
 		} catch (SQLException e) {
-			throw new RuntimeException("can't update Role entity", e);
+			throw new RuntimeException("can't update State entity", e);
 		}
 	}
 
 	@Override
 	public void delete(Integer id) {
 		try (Connection c = createConnection()) {
-			PreparedStatement pstmt = c.prepareStatement("delete from role where id=?");
+			PreparedStatement pstmt = c.prepareStatement("delete from state where id=?");
 			pstmt.setInt(1, id);
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new RuntimeException("can't delete Role entity", e);
+			throw new RuntimeException("can't delete State entity", e);
 		}
 	}
 
 	@Override
-	public Role getById(Integer id) {
-		Role entity = null;
+	public State getById(Integer id) {
+		State entity = null;
 		try (Connection c = createConnection()) {
-			PreparedStatement pstmt = c.prepareStatement("select * from role where id=?");
+			PreparedStatement pstmt = c.prepareStatement("select * from state where id=?");
 			pstmt.setInt(1, id);
 
 			ResultSet rs = pstmt.executeQuery();
@@ -69,19 +68,19 @@ public class RoleDaoImpl extends AbstractDao implements IDao<Integer, Role> {
 				entity = rowToEntity(rs);
 			}
 		} catch (SQLException e) {
-			throw new RuntimeException("can't get Role entity by id", e);
+			throw new RuntimeException("can't get State entity by id", e);
 		}
 
 		return entity;
 	}
 
 	@Override
-	public List<Role> getAll() {
-		List<Role> entitiesList = new ArrayList<>();
+	public List<State> getAll() {
+		List<State> entitiesList = new ArrayList<>();
 		try (Connection c = createConnection()) {
-			ResultSet rs = c.createStatement().executeQuery("select * from role");
+			ResultSet rs = c.createStatement().executeQuery("select * from state");
 			while (rs.next()) {
-				Role entity = rowToEntity(rs);
+				State entity = rowToEntity(rs);
 				entitiesList.add(entity);
 			}
 		} catch (SQLException e) {
@@ -91,8 +90,8 @@ public class RoleDaoImpl extends AbstractDao implements IDao<Integer, Role> {
 		return entitiesList;
 	}
 
-	private Role rowToEntity(ResultSet rs) throws SQLException {
-		Role entity = new Role();
+	private State rowToEntity(ResultSet rs) throws SQLException {
+		State entity = new State();
 		entity.setId(rs.getInt("id"));
 		entity.setName(rs.getString("name"));
 		return entity;
