@@ -11,7 +11,7 @@ import by.grsu.anikevich.comission.db.dao.AbstractDao;
 import by.grsu.anikevich.comission.db.dao.IDao;
 import by.grsu.anikevich.comission.db.model.State;
 
-public class StateDaoImpl extends AbstractDao implements IDao<Integer, State>{
+public class StateDaoImpl extends AbstractDao implements IDao<Integer, State> {
 	public static final StateDaoImpl INSTANCE = new StateDaoImpl();
 
 	private StateDaoImpl() {

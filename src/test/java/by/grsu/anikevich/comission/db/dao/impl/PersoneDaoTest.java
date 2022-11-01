@@ -7,53 +7,74 @@ import by.grsu.anikevich.comission.db.dao.IDao;
 import by.grsu.anikevich.comission.db.model.Persone;
 import by.grsu.anikevich.comission.db.model.Role;
 
-public class PersoneDaoTest extends AbstractTest{
-	private static final IDao<Integer, Persone> personedao = PersoneDaoImpl.INSTANCE;
-	private static final IDao<Integer, Role> roledao = RoleDaoImpl.INSTANCE;
+public class PersoneDaoTest extends AbstractTest {
+	private static final IDao<Integer, Persone> personeDao = PersoneDaoImpl.INSTANCE;
+	private static final IDao<Integer, Role> roleDao = RoleDaoImpl.INSTANCE;
 
 	@Test
 	public void testInsert() {
 		Persone entity = new Persone();
-		entity.setRoleId(1);
+		entity.setRoleId(saveRole("role").getId());
 		entity.setFirstName("first_name");
-		entity.setSecondName(rs.getString("second_name"));
-		entity.setPatronymic(rs.getString("patronymic"));
-		entity.setMail(rs.getString("mail"));
-		dao.insert(entity);
+		entity.setSecondName("second_name");
+		entity.setPatronymic("patronymic");
+		entity.setMail("mail");
+		personeDao.insert(entity);
 		Assertions.assertNotNull(entity.getId());
 	}
 
 	@Test
 	public void testUpdate() {
 		Persone entity = new Persone();
-		entity.setName("Candidate");
+		entity.setRoleId(saveRole("role").getId());
+		entity.setFirstName("first_name");
+		entity.setSecondName("second_name");
+		entity.setPatronymic("patronymic");
+		entity.setMail("mail");
+		personeDao.insert(entity);
 
-		dao.insert(entity);
+		entity.setFirstName("newfirst_name");
+		entity.setSecondName("newsecond_name");
+		entity.setPatronymic("newpatronymic");
+		entity.setMail("mail");
+		personeDao.update(entity);
 
-		String newName = "NEW_Candidate";
-		entity.setName(newName);
-		dao.update(entity);
+		Persone updatedEntity = personeDao.getById(entity.getId());
+		Assertions.assertEquals("newfirst_name", updatedEntity.getFirstName());
+		Assertions.assertEquals("newsecond_name", updatedEntity.getSecondName());
+		Assertions.assertEquals("newpatronymic", updatedEntity.getPatronymic());
+		Assertions.assertEquals("mail", updatedEntity.getMail());
 
-		Persone updatedEntity = dao.getById(entity.getId());
-		Assertions.assertEquals(newName, updatedEntity.getName());
 	}
 
 	@Test
 	public void testDelete() {
 		Persone entity = new Persone();
-		entity.setName("Candidate");
-		dao.insert(entity);
-		dao.delete(entity.getId());
-		Assertions.assertNull(dao.getById(entity.getId()));
+		entity.setRoleId(saveRole("role").getId());
+		entity.setFirstName("first_name");
+		entity.setSecondName("second_name");
+		entity.setPatronymic("patronymic");
+		entity.setMail("mail");
+		personeDao.insert(entity);
+		personeDao.delete(entity.getId());
+		Assertions.assertNull(personeDao.getById(entity.getId()));
 	}
 
 	@Test
 	public void testGetById() {
 		Persone entity = new Persone();
-		entity.setName("Candidate");
-		dao.insert(entity);
-		Persone selectedEntity = dao.getById(entity.getId());
-		Assertions.assertEquals(entity.getName(), selectedEntity.getName());
+		entity.setRoleId(saveRole("role").getId());
+		entity.setFirstName("first_name");
+		entity.setSecondName("second_name");
+		entity.setPatronymic("patronymic");
+		entity.setMail("mail");
+		personeDao.insert(entity);
+
+		Persone selectedEntity = personeDao.getById(entity.getId());
+		Assertions.assertEquals("first_name", selectedEntity.getFirstName());
+		Assertions.assertEquals("second_name", selectedEntity.getSecondName());
+		Assertions.assertEquals("patronymic", selectedEntity.getPatronymic());
+		Assertions.assertEquals("mail", selectedEntity.getMail());
 	}
 
 	@Test
@@ -61,11 +82,22 @@ public class PersoneDaoTest extends AbstractTest{
 		int expectedCount = getRandomNumber(1, 5);
 		for (int i = 1; i <= expectedCount; i = i + 1) {
 			Persone entity = new Persone();
-			entity.setName("Candidate" + i);
-			dao.insert(entity);
+			entity.setRoleId(saveRole("role" + i).getId());
+			entity.setFirstName("first_name" + i);
+			entity.setSecondName("second_name" + i);
+			entity.setPatronymic("patronymic" + i);
+			entity.setMail("mail" + i);
+			personeDao.insert(entity);
 		}
 
-		Assertions.assertEquals(expectedCount, dao.getAll().size());
+		Assertions.assertEquals(expectedCount, personeDao.getAll().size());
+	}
+
+	private Role saveRole(String name) {
+		Role entity = new Role();
+		entity.setName(name);
+		roleDao.insert(entity);
+		return entity;
 	}
 
 }

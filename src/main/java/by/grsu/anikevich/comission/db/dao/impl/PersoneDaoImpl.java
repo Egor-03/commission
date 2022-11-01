@@ -11,8 +11,7 @@ import by.grsu.anikevich.comission.db.dao.AbstractDao;
 import by.grsu.anikevich.comission.db.dao.IDao;
 import by.grsu.anikevich.comission.db.model.Persone;
 
-
-public class PersoneDaoImpl extends AbstractDao  implements IDao<Integer, Persone> {
+public class PersoneDaoImpl extends AbstractDao implements IDao<Integer, Persone> {
 
 	public static final PersoneDaoImpl INSTANCE = new PersoneDaoImpl();
 
@@ -23,7 +22,8 @@ public class PersoneDaoImpl extends AbstractDao  implements IDao<Integer, Person
 	@Override
 	public void insert(Persone entity) {
 		try (Connection c = createConnection()) {
-			PreparedStatement pstmt = c.prepareStatement("insert into persone(role_id,first_name,second_name,patronymic,mail) values(?,?,?,?,?)");
+			PreparedStatement pstmt = c.prepareStatement(
+					"insert into persone(role_id,first_name,second_name,patronymic,mail) values(?,?,?,?,?)");
 			pstmt.setInt(1, entity.getRoleId());
 			pstmt.setString(2, entity.getFirstName());
 			pstmt.setString(3, entity.getSecondName());
@@ -40,12 +40,14 @@ public class PersoneDaoImpl extends AbstractDao  implements IDao<Integer, Person
 	@Override
 	public void update(Persone entity) {
 		try (Connection c = createConnection()) {
-			PreparedStatement pstmt = c.prepareStatement("update role set role_id=? first_name=? second_name=? patronymic=? mail=? ");
+			PreparedStatement pstmt = c.prepareStatement(
+					"update persone set role_id=?, first_name=?, second_name=?, patronymic=?, mail=?  where id =? ");
 			pstmt.setInt(1, entity.getRoleId());
 			pstmt.setString(2, entity.getFirstName());
 			pstmt.setString(3, entity.getSecondName());
 			pstmt.setString(4, entity.getPatronymic());
 			pstmt.setString(5, entity.getMail());
+			pstmt.setInt(6, entity.getId());
 			pstmt.executeUpdate();
 			entity.setId(getGeneratedId(c, "persone"));
 		} catch (SQLException e) {
@@ -109,6 +111,5 @@ public class PersoneDaoImpl extends AbstractDao  implements IDao<Integer, Person
 		entity.setMail(rs.getString("mail"));
 		return entity;
 	}
-
 
 }

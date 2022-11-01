@@ -1,7 +1,7 @@
 package by.grsu.anikevich.comission.db.dao.impl;
 
-import java.util.Date;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +25,7 @@ public abstract class AbstractTest {
 	}
 
 	protected int getRandomNumber(int min, int max) {
-	    return (int) ((Math.random() * (max - min)) + min);
+		return (int) ((Math.random() * (max - min)) + min);
 	}
 
 }

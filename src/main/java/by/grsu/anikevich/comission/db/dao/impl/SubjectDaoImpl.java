@@ -9,7 +9,6 @@ import java.util.List;
 
 import by.grsu.anikevich.comission.db.dao.AbstractDao;
 import by.grsu.anikevich.comission.db.dao.IDao;
-
 import by.grsu.anikevich.comission.db.model.Subject;
 
 public class SubjectDaoImpl extends AbstractDao implements IDao<Integer, Subject> {

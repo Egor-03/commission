@@ -1,11 +1,12 @@
 package by.grsu.anikevich.comission.db.dao.impl;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import by.grsu.anikevich.comission.db.dao.IDao;
 import by.grsu.anikevich.comission.db.model.Subject;
 
-public class SubjectDaoTest  extends AbstractTest {
+public class SubjectDaoTest extends AbstractTest {
 	private static final IDao<Integer, Subject> dao = SubjectDaoImpl.INSTANCE;
 
 	@Test

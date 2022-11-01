@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import by.grsu.anikevich.comission.db.dao.IDao;
 import by.grsu.anikevich.comission.db.model.Faculty;
 
-
 public class FacultyDaoTest extends AbstractTest {
 	private static final IDao<Integer, Faculty> dao = FacultyDaoImpl.INSTANCE;
 
