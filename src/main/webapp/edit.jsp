@@ -76,7 +76,7 @@
 				<div class="row">
 					<div class="col s12 input-field center-align">
 						<a class="btn waves-effect waves-light red" href="index.jsp"><i
-							class="material-icons left">list</i>Listƒ</a> <a
+							class="material-icons left">list</i>List</a> <a
 							class="btn waves-effect waves-light green" href="list.jsp"><i
 							class="material-icons left">save</i>Save</a>
 					</div>
