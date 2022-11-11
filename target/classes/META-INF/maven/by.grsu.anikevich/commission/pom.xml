@@ -93,5 +93,6 @@
 			<version>9.2.15.v20160210</version>
 			<scope>provided</scope>
 		</dependency>
+		
 	</dependencies>
 </project>

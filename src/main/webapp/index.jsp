@@ -1,5 +1,7 @@
 <%@ page contentType="text/html" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<c:set var="pageTitle" value="Car edit" scope="application"/>
 <t:wrapper>
 
 
