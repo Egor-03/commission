@@ -1,8 +1,12 @@
 <%@ tag language="java" pageEncoding="ISO-8859-1"%>
+<%@tag description="Page template" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 
 <head>
-<title>Items list</title>
+
+
+<title><c:out value = "${pageTitle}"/></title>
 <script src="my_script.js">	
 </script>
 <!-- Compiled and minified CSS -->
