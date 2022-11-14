@@ -41,13 +41,13 @@ public class PersoneDaoImpl extends AbstractDao implements IDao<Integer, Persone
 	public void update(Persone entity) {
 		try (Connection c = createConnection()) {
 			PreparedStatement pstmt = c.prepareStatement(
-					"update persone set role_id=?, first_name=?, second_name=?, patronymic=?, mail=?  where id =? ");
-			pstmt.setInt(1, entity.getRoleId());
-			pstmt.setString(2, entity.getFirstName());
-			pstmt.setString(3, entity.getSecondName());
-			pstmt.setString(4, entity.getPatronymic());
-			pstmt.setString(5, entity.getMail());
-			pstmt.setInt(6, entity.getId());
+					"update persone set  first_name=?, second_name=?, patronymic=?, mail=?  where id =? ");
+			//pstmt.setInt(1, entity.getRoleId());
+			pstmt.setString(1, entity.getFirstName());
+			pstmt.setString(2, entity.getSecondName());
+			pstmt.setString(3, entity.getPatronymic());
+			pstmt.setString(4, entity.getMail());
+			pstmt.setInt(5, entity.getId());
 			pstmt.executeUpdate();
 			entity.setId(getGeneratedId(c, "persone"));
 		} catch (SQLException e) {
@@ -104,7 +104,8 @@ public class PersoneDaoImpl extends AbstractDao implements IDao<Integer, Persone
 
 	private Persone rowToEntity(ResultSet rs) throws SQLException {
 		Persone entity = new Persone();
-		entity.setRoleId(rs.getInt("id"));
+		entity.setId(rs.getInt("id"));
+		entity.setRoleId(rs.getInt("role_id"));
 		entity.setFirstName(rs.getString("first_name"));
 		entity.setSecondName(rs.getString("second_name"));
 		entity.setPatronymic(rs.getString("patronymic"));

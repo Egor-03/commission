@@ -29,7 +29,7 @@ public class RequestDaoImpl extends AbstractDao implements IDao<Integer, Request
 			pstmt.setInt(3, entity.getStateId());
 			pstmt.executeUpdate();
 			entity.setId(getGeneratedId(c, "request"));
-		} catch (SQLException e) {
+ 		} catch (SQLException e) {
 			throw new RuntimeException("can't insert Request entity", e);
 		}
 

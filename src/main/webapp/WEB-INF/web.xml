@@ -13,9 +13,58 @@
 		<servlet-name>RoleServlet</servlet-name>
 		<servlet-class>by.grsu.anikevich.comission.web.servlet.RoleServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>PersoneServlet</servlet-name>
+		<servlet-class>by.grsu.anikevich.comission.web.servlet.PersoneServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>FacultyServlet</servlet-name>
+		<servlet-class>by.grsu.anikevich.comission.web.servlet.FacultyServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>RequestServlet</servlet-name>
+		<servlet-class>by.grsu.anikevich.comission.web.servlet.RequestServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SpecialityServlet</servlet-name>
+		<servlet-class>by.grsu.anikevich.comission.web.servlet.SpecialityServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>StateServlet</servlet-name>
+		<servlet-class>by.grsu.anikevich.comission.web.servlet.StateServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SubjectServlet</servlet-name>
+		<servlet-class>by.grsu.anikevich.comission.web.servlet.SubjectServlet</servlet-class>
+	</servlet>
 	
 	<servlet-mapping>
 		<servlet-name>RoleServlet</servlet-name>
 		<url-pattern>/role</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PersoneServlet</servlet-name>
+		<url-pattern>/persone</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FacultyServlet</servlet-name>
+		<url-pattern>/faculty</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RequestServlet</servlet-name>
+		<url-pattern>/request</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SpecialityServlet</servlet-name>
+		<url-pattern>/speciality</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>StateServlet</servlet-name>
+		<url-pattern>/state</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SubjectServlet</servlet-name>
+		<url-pattern>/subject</url-pattern>
 	</servlet-mapping>
 </web-app>

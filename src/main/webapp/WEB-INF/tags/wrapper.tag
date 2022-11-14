@@ -1,5 +1,4 @@
-<%@ tag language="java" pageEncoding="ISO-8859-1"%>
-<%@tag description="Page template" pageEncoding="UTF-8"%>
+<%@ tag language="java" pageEncoding="ISO-8859-1"%>	
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 
@@ -7,8 +6,7 @@
 
 
 <title><c:out value = "${pageTitle}"/></title>
-<script src="my_script.js">	
-</script>
+<script src="js/helpers.js"></script>
 <!-- Compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
