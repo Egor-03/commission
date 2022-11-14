@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                      http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	version="4.0">
+
+	<listener>
+		<listener-class>by.grsu.anikevich.comission.web.context.AppStartupListener</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>RoleServlet</servlet-name>
+		<servlet-class>by.grsu.anikevich.comission.web.servlet.RoleServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>RoleServlet</servlet-name>
+		<url-pattern>/role</url-pattern>
+	</servlet-mapping>
+</web-app>

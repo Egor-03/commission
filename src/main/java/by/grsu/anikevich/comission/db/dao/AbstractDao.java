@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -65,6 +66,14 @@ public class AbstractDao {
 		System.out.println(String.format("delete DB %s", DB_NAME));
 		File dbDataFile = new File(String.format("%s/%s", DB_FOLDER, DB_NAME));
 		dbDataFile.delete();
+	}
+	
+	public static boolean isDbExist() throws SQLException {
+		try (Connection c = createConnection()) {
+			DatabaseMetaData metaData = c.getMetaData();
+			ResultSet rs = metaData.getTables(null, null, null, null);
+			return rs.next(); // assume DB exists if at least one table presents
+		}
 	}
 
 }
