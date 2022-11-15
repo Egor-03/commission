@@ -82,9 +82,9 @@ public class RequestServlet extends HttpServlet {
 		System.out.println("doPost");
 		Request request = new Request();
 		String requestIdStr = req.getParameter("id");
-		String personeIdStr = req.getParameter("personId");
-		String specialityIdstr = req.getParameter("specialityId");
-		String stateIdStr = req.getParameter("stateId");
+		String personeIdStr = req.getParameter("person_id");
+		String specialityIdstr = req.getParameter("speciality_id");
+		String stateIdStr = req.getParameter("state_id");
 		
 		request.setPersonId(personeIdStr== null ? null: Integer.parseInt(personeIdStr));
 		request.setSpecialityId(specialityIdstr== null ? null: Integer.parseInt(specialityIdstr));
