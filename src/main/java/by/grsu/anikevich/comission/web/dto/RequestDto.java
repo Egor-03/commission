@@ -50,6 +50,12 @@ public class RequestDto {
 	public void setStateName(String stateName) {
 		this.stateName = stateName;
 	}
+	@Override
+	public String toString() {
+		return "RequestDto [id=" + id + ", personId=" + personId + ", personeName=" + personeName + ", specialityId="
+				+ specialityId + ", specialityName=" + specialityName + ", stateId=" + stateId + ", stateName="
+				+ stateName + "]";
+	}
 	
 
 	

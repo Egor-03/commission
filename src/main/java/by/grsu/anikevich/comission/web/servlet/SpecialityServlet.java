@@ -49,9 +49,9 @@ public class SpecialityServlet extends HttpServlet {
 			Subject firtsSubject = subjectDao.getById(entity.getFirstSubjectId());
 			dto.setFirstSubjectName(firtsSubject.getName());
 			Subject secondSubject = subjectDao.getById(entity.getSecondSubjectId());
-			dto.setFirstSubjectName(secondSubject.getName());
+			dto.setSecondSubjectName(secondSubject.getName());
 			Subject thirdSubject = subjectDao.getById(entity.getThirdSubjectId());
-			dto.setFirstSubjectName(thirdSubject.getName());
+			dto.setThirdSubjectName(thirdSubject.getName());
 			return dto;
 		}).collect(Collectors.toList());
 
@@ -82,10 +82,10 @@ public class SpecialityServlet extends HttpServlet {
 		System.out.println("doPost");
 		Speciality speciality = new Speciality();
 		String specialityIdStr = req.getParameter("id");
-		String firstSubjectId = req.getParameter("first_subject_id");
-		String secondSubjectId = req.getParameter("second_subject_id");
-		String thirdSubjectId = req.getParameter("third_subject_id");
-		String facultyIdStr = req.getParameter("faculty_id");
+		String firstSubjectId = req.getParameter("firstSubjectId");
+		String secondSubjectId = req.getParameter("secondSubjectId");
+		String thirdSubjectId = req.getParameter("thirdSubjectId");
+		String facultyIdStr = req.getParameter("facultyId");
 		
 		speciality.setName(req.getParameter("name"));
 		speciality.setFacultyId(facultyIdStr== null ? null: Integer.parseInt(facultyIdStr));

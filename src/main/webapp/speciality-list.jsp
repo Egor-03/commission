@@ -1,12 +1,43 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>
+<%@ page contentType="text/html" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<c:set var="pageTitle" value="Speciality list" scope="application"/>
+<t:wrapper>
+		<h1>Speciality list</h1>
+	<div class="row">
+		<div class="col s12">
+			<div class="center-align">
+				<a class="btn-floating btn-large waves-effect waves-light" href="/speciality?view=edit"><i class="material-icons">add</i></a>
+			</div>
+		</div>
+	</div>
+	<table>
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>first_subject_id</th>
+				<th>second_subject_id</th>
+				<th>third_subject_id</th>
+				<th>faculty_id</th>
+				<th>name</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="entity" items="${list}" varStatus="loopCounter">
+				<tr>
+					<td><c:out value="${entity.id}" /></td>
+					<td><c:out value="${entity.firstSubjectName}" /></td>
+					<td><c:out value="${entity.secondSubjectName}" /></td>
+					<td><c:out value="${entity.thirdSubjectName}" /></td>
+					<td><c:out value="${entity.facultyName}" /></td>
+					<td><c:out value="${entity.name}" /></td>
+					<td><a class="btn-small btn-floating waves-effect waves-light blue" title="редактировать" href="/speciality?view=edit&id=${entity.id}"><i
+							class="material-icons">edit</i></a><a class="btn-small btn-floating waves-effect waves-light red" title="удалить" onclick="sendHTTPDelete('/speciality?id=${entity.id}')"><i class="material-icons">delete</i></a></td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	
+	
+</t:wrapper>

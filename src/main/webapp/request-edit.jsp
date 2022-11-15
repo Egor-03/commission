@@ -16,7 +16,7 @@
 			<input type="hidden" name="id" value="${dto.id}" />
 			<div class="row">
 				<div class="input-field col s12">  
-					<input type="text" name="personId" value="${dto.personId}" ${empty dto.personId ? '' : 'disabled'} > <label for="personId">PersonId</label>
+					<input type="text" name="personId" value="${dto.personId}" > <label for="personId">PersonId</label>
 				</div>
 			</div>
 			<div class="row">

@@ -1,61 +1,83 @@
 package by.grsu.anikevich.comission.web.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.common.base.Strings;
+
 import by.grsu.anikevich.comission.db.dao.IDao;
 import by.grsu.anikevich.comission.db.dao.impl.FacultyDaoImpl;
 import by.grsu.anikevich.comission.db.model.Faculty;
 
 
+
 public class FacultyServlet extends HttpServlet {
 	private static final IDao<Integer, Faculty> facultyDao = FacultyDaoImpl.INSTANCE;
-
+	
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		Integer facultyId = Integer.parseInt(req.getParameter("id")); // read request parameter
-		Faculty facultyById = facultyDao.getById(facultyId); // from DB
-
-		res.setContentType("text/html");// setting the content type
-
-		PrintWriter pw = res.getWriter();// get the stream to write the data
-
-		// writing html in the stream
-		pw.println("<html><body>");
-
-		if (facultyById == null) {
-			pw.println("no brand by id=" + facultyId);
+		System.out.println("doGet");
+		String viewParam = req.getParameter("view");
+		if ("edit".equals(viewParam)) {
+			handleEditView(req, res);
 		} else {
-			pw.println(facultyById.toString());
+			handleListView(req, res);
 		}
+	}
+	
+	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		List<Faculty> faculties = facultyDao.getAll(); 
 
-		pw.println("</body></html>");
-		pw.close();// closing the stream
+		List<Faculty> dtos = faculties.stream().map((entity) -> {
+			Faculty dto = new Faculty();
+			dto.setId(entity.getId());
+			dto.setName(entity.getName());
+			return dto;
+		}).collect(Collectors.toList());
+
+		req.setAttribute("list", dtos);
+		req.getRequestDispatcher("faculty-list.jsp").forward(req, res);
 	}
 
+	private void handleEditView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		String facultyIdStr = req.getParameter("id");
+		Faculty dto = new Faculty();
+		if (!Strings.isNullOrEmpty(facultyIdStr)) {
+			Integer specialityId = Integer.parseInt(facultyIdStr);
+			Faculty entity = facultyDao.getById(specialityId);
+			dto.setId(entity.getId());
+			dto.setName(entity.getName());
+		}
+		req.setAttribute("dto", dto);
+		req.getRequestDispatcher("faculty-edit.jsp").forward(req, res);
+	}
+	
+	
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		res.setContentType("text/html");
-		PrintWriter pw = res.getWriter();// get the stream to write the data
-		pw.println("<html><body>");
-		try {
-			String paramName = req.getParameter("name");
-			Faculty facultyEntity = new Faculty();
-			facultyEntity.setName(paramName);
-			facultyDao.insert(facultyEntity);
-			pw.println("Saved:" + facultyEntity);
-
-		} catch (Exception e) {
-			pw.println("Error:" + e.toString());
+		System.out.println("doPost");
+		Faculty faculty = new Faculty();
+		String facultyIdStr = req.getParameter("id");
+		
+		faculty.setName(req.getParameter("name"));
+		if (Strings.isNullOrEmpty(facultyIdStr)) {
+			facultyDao.insert(faculty);
+		} else {
+			faculty.setId(Integer.parseInt(facultyIdStr));
+			facultyDao.update(faculty);
 		}
-
-		pw.println("</body></html>");
-		pw.close();
+		res.sendRedirect("/faculty");
+	}
+	
+	@Override
+	public void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		System.out.println("doDelete");
+		facultyDao.delete(Integer.parseInt(req.getParameter("id")));
 	}
 }
-

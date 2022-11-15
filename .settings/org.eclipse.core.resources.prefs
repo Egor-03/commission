@@ -1,3 +1,8 @@
 eclipse.preferences.version=1
+encoding//src/main/webapp/faculty-list.jsp=UTF-8
 encoding//src/main/webapp/persone-list.jsp=UTF-8
 encoding//src/main/webapp/request-list.jsp=UTF-8
+encoding//src/main/webapp/role-list.jsp=UTF-8
+encoding//src/main/webapp/speciality-list.jsp=UTF-8
+encoding//src/main/webapp/state-list.jsp=UTF-8
+encoding//src/main/webapp/subject-list.jsp=UTF-8

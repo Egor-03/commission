@@ -25,9 +25,9 @@
 			<c:forEach var="entity" items="${list}" varStatus="loopCounter">
 				<tr>
 					<td><c:out value="${entity.id}" /></td>
-					<td><c:out value="${entity.personId}" /></td>
-					<td><c:out value="${entity.specialityId}" /></td>
-					<td><c:out value="${entity.stateId}" /></td>
+					<td><c:out value="${entity.personeName}" /></td>
+					<td><c:out value="${entity.specialityName}" /></td>
+					<td><c:out value="${entity.stateName}" /></td>
 					<td><a class="btn-small btn-floating waves-effect waves-light blue" title="редактировать" href="/request?view=edit&id=${entity.id}"><i
 							class="material-icons">edit</i></a><a class="btn-small btn-floating waves-effect waves-light red" title="удалить" onclick="sendHTTPDelete('/request?id=${entity.id}')"><i class="material-icons">delete</i></a></td>
 				</tr>

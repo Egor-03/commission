@@ -1,59 +1,84 @@
 package by.grsu.anikevich.comission.web.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.common.base.Strings;
+
 import by.grsu.anikevich.comission.db.dao.IDao;
 import by.grsu.anikevich.comission.db.dao.impl.RoleDaoImpl;
 import by.grsu.anikevich.comission.db.model.Role;
 
+
+
+
 public class RoleServlet extends HttpServlet {
 	private static final IDao<Integer, Role> roleDao = RoleDaoImpl.INSTANCE;
-
+	
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		Integer roleId = Integer.parseInt(req.getParameter("id")); // read request parameter
-		Role roleById = roleDao.getById(roleId); // from DB
-
-		res.setContentType("text/html");// setting the content type
-
-		PrintWriter pw = res.getWriter();// get the stream to write the data
-
-		// writing html in the stream
-		pw.println("<html><body>");
-
-		if (roleById == null) {
-			pw.println("no brand by id=" + roleId);
+		System.out.println("doGet");
+		String viewParam = req.getParameter("view");
+		if ("edit".equals(viewParam)) {
+			handleEditView(req, res);
 		} else {
-			pw.println(roleById.toString());
+			handleListView(req, res);
 		}
+	}
+	
+	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		List<Role> roles = roleDao.getAll(); 
 
-		pw.println("</body></html>");
-		pw.close();// closing the stream
+		List<Role> dtos = roles.stream().map((entity) -> {
+			Role dto = new Role();
+			dto.setId(entity.getId());
+			dto.setName(entity.getName());
+			return dto;
+		}).collect(Collectors.toList());
+
+		req.setAttribute("list", dtos);
+		req.getRequestDispatcher("role-list.jsp").forward(req, res);
 	}
 
+	private void handleEditView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		String roleIdStr = req.getParameter("id");
+		Role dto = new Role();
+		if (!Strings.isNullOrEmpty(roleIdStr)) {
+			Integer roleId = Integer.parseInt(roleIdStr);
+			Role entity = roleDao.getById(roleId);
+			dto.setId(entity.getId());
+			dto.setName(entity.getName());
+		}
+		req.setAttribute("dto", dto);
+		req.getRequestDispatcher("role-edit.jsp").forward(req, res);
+	}
+	
+	
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		res.setContentType("text/html");
-		PrintWriter pw = res.getWriter();// get the stream to write the data
-		pw.println("<html><body>");
-		try {
-			String paramName = req.getParameter("name");
-			Role roleEntity = new Role();
-			roleEntity.setName(paramName);
-			roleDao.insert(roleEntity);
-			pw.println("Saved:" + roleEntity);
-
-		} catch (Exception e) {
-			pw.println("Error:" + e.toString());
+		System.out.println("doPost");
+		Role faculty = new Role();
+		String facultyIdStr = req.getParameter("id");
+		
+		faculty.setName(req.getParameter("name"));
+		if (Strings.isNullOrEmpty(facultyIdStr)) {
+			roleDao.insert(faculty);
+		} else {
+			faculty.setId(Integer.parseInt(facultyIdStr));
+			roleDao.update(faculty);
 		}
-
-		pw.println("</body></html>");
-		pw.close();
+		res.sendRedirect("/role");
+	}
+	
+	@Override
+	public void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		System.out.println("doDelete");
+		roleDao.delete(Integer.parseInt(req.getParameter("id")));
 	}
 }
