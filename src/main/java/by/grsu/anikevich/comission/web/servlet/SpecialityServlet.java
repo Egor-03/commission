@@ -39,7 +39,7 @@ public class SpecialityServlet extends HttpServlet {
 	
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
-		String parameter = req.getParameter("faciltyId");
+		String parameter = req.getParameter("facultyId");
 		
 		
 		if (Strings.isNullOrEmpty(parameter) ) {	
@@ -61,9 +61,9 @@ public class SpecialityServlet extends HttpServlet {
 			req.setAttribute("list", dtos);
 			req.getRequestDispatcher("speciality-list.jsp").forward(req, res);
 		} else {
-			Integer specialityId = Integer.parseInt(parameter); // read request parameter
+			Integer facultyId = Integer.parseInt(parameter); // read request parameter
 			
-			List<Speciality> specialities = specialityDao.getAllwithId(specialityId); 
+			List<Speciality> specialities = specialityDao.getAllwithId(facultyId); 
 			List<SpecialityDto> dtos = specialities.stream().map((entity) -> {
 				SpecialityDto dto = new SpecialityDto();
 				dto.setId(entity.getId());

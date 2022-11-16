@@ -29,7 +29,7 @@
 					<td><c:out value="${entity.name}" /></td>
 					<th></th>
 					<td><a href="/speciality?facultyId=${entity.id}" class="waves-effect waves-light btn">registre</a></td>
-					<td><a href="/request" class="waves-effect waves-light btn">show 
+					<td><a href="/request?facultuName=${entity.name}" class="waves-effect waves-light btn">show 
 					<td><a class="btn-small btn-floating waves-effect waves-light blue" title="редактировать" href="/faculty?view=edit&id=${entity.id}"><i
 							class="material-icons">edit</i></a><a class="btn-small btn-floating waves-effect waves-light red" title="удалить" onclick="sendHTTPDelete('/faculty?id=${entity.id}')"><i class="material-icons">delete</i></a></td>
 				</tr>

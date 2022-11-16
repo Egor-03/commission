@@ -87,7 +87,7 @@ public class SpecialityDaoImpl extends AbstractDao implements IDao<Integer, Spec
 	public List<Speciality> getAllwithId(Integer id) {
 		List<Speciality> entitiesList = new ArrayList<>();
 		try (Connection c = createConnection()) {
-			PreparedStatement pstmt = c.prepareStatement("select * from speciality where id=?");
+			PreparedStatement pstmt = c.prepareStatement("select * from speciality where faculty_id=?");
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {

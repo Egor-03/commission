@@ -48,7 +48,7 @@ public class RequestServlet extends HttpServlet {
 	}
 	
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		String parameter = req.getParameter("faciltyId");
+		String parameter = req.getParameter("facultyId");
 		
 
 		if (Strings.isNullOrEmpty(parameter) ) {
@@ -70,8 +70,8 @@ public class RequestServlet extends HttpServlet {
 			req.setAttribute("list", dtos);
 			req.getRequestDispatcher("request-list.jsp").forward(req, res);
 		} else {
-			Integer requestId = Integer.parseInt(parameter); // read request parameter
-			List<Request> requests = requestDao.getAllwithId(requestId); 
+			Integer faciltyId = Integer.parseInt(parameter); // read request parameter
+			List<Request> requests = requestDao.getAllwithId(faciltyId); 
 			List<RequestDto> dtos = requests.stream().map((entity) -> {
 				RequestDto dto = new RequestDto();
 				dto.setId(entity.getId());
