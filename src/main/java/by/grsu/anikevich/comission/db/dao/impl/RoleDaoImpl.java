@@ -98,4 +98,10 @@ public class RoleDaoImpl extends AbstractDao implements IDao<Integer, Role> {
 		return entity;
 	}
 
+	@Override
+	public List<Role> getAllwithId(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

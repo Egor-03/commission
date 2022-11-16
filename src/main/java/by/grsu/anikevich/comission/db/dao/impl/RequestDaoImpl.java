@@ -10,6 +10,7 @@ import java.util.List;
 import by.grsu.anikevich.comission.db.dao.AbstractDao;
 import by.grsu.anikevich.comission.db.dao.IDao;
 import by.grsu.anikevich.comission.db.model.Request;
+import by.grsu.anikevich.comission.db.model.Speciality;
 
 public class RequestDaoImpl extends AbstractDao implements IDao<Integer, Request> {
 
@@ -81,7 +82,7 @@ public class RequestDaoImpl extends AbstractDao implements IDao<Integer, Request
 
 		return entity;
 	}
-
+	
 	@Override
 	public List<Request> getAll() {
 		List<Request> entitiesList = new ArrayList<>();
@@ -98,6 +99,26 @@ public class RequestDaoImpl extends AbstractDao implements IDao<Integer, Request
 		return entitiesList;
 	}
 
+	
+
+	@Override
+	public List<Request> getAllwithId(Integer id) {
+		List<Request> entitiesList = new ArrayList<>();
+		try (Connection c = createConnection()) {
+			PreparedStatement pstmt = c.prepareStatement("select * from request where id=?");
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Request entity = rowToEntity(rs);
+				entitiesList.add(entity);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("can't select request entities", e);
+		}
+
+		return entitiesList;
+		
+	}
 	private Request rowToEntity(ResultSet rs) throws SQLException {
 		Request entity = new Request();
 		entity.setId(rs.getInt("id"));
@@ -105,5 +126,23 @@ public class RequestDaoImpl extends AbstractDao implements IDao<Integer, Request
 		entity.setSpecialityId(rs.getInt("speciality_id"));
 		entity.setStateId(rs.getInt("state_id"));
 		return entity;
+	}
+	
+	public List<Request> getAllwith(Integer id) {
+		List<Request> entitiesList = new ArrayList<>();
+		try (Connection c = createConnection()) {
+			PreparedStatement pstmt = c.prepareStatement("select * from request where id=?");
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Request entity = rowToEntity(rs);
+				entitiesList.add(entity);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("can't select request entities", e);
+		}
+
+		return entitiesList;
+		
 	}
 }

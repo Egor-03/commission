@@ -97,4 +97,10 @@ public class SubjectDaoImpl extends AbstractDao implements IDao<Integer, Subject
 		entity.setName(rs.getString("name"));
 		return entity;
 	}
+
+	@Override
+	public List<Subject> getAllwithId(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

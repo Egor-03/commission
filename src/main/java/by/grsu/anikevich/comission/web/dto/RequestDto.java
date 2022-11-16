@@ -6,6 +6,7 @@ public class RequestDto {
 	private String personeName;
 	private Integer specialityId;
 	private String specialityName;
+	private String facultyName;
 	private Integer stateId;
 	private String stateName;
 	public Integer getId() {
@@ -55,6 +56,12 @@ public class RequestDto {
 		return "RequestDto [id=" + id + ", personId=" + personId + ", personeName=" + personeName + ", specialityId="
 				+ specialityId + ", specialityName=" + specialityName + ", stateId=" + stateId + ", stateName="
 				+ stateName + "]";
+	}
+	public String getFacultyName() {
+		return facultyName;
+	}
+	public void setFacultyName(String facultyName) {
+		this.facultyName = facultyName;
 	}
 	
 

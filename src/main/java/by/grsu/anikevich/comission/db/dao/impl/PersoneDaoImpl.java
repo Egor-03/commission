@@ -113,4 +113,10 @@ public class PersoneDaoImpl extends AbstractDao implements IDao<Integer, Persone
 		return entity;
 	}
 
+	@Override
+	public List<Persone> getAllwithId(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

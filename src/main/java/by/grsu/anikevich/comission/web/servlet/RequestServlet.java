@@ -12,15 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.common.base.Strings;
 
 import by.grsu.anikevich.comission.db.dao.IDao;
+import by.grsu.anikevich.comission.db.dao.impl.FacultyDaoImpl;
 import by.grsu.anikevich.comission.db.dao.impl.PersoneDaoImpl;
 import by.grsu.anikevich.comission.db.dao.impl.RequestDaoImpl;
 import by.grsu.anikevich.comission.db.dao.impl.SpecialityDaoImpl;
 import by.grsu.anikevich.comission.db.dao.impl.StateDaoImpl;
+import by.grsu.anikevich.comission.db.model.Faculty;
 import by.grsu.anikevich.comission.db.model.Persone;
 import by.grsu.anikevich.comission.db.model.Request;
 import by.grsu.anikevich.comission.db.model.Speciality;
 import by.grsu.anikevich.comission.db.model.State;
+import by.grsu.anikevich.comission.db.model.Subject;
 import by.grsu.anikevich.comission.web.dto.RequestDto;
+import by.grsu.anikevich.comission.web.dto.SpecialityDto;
 
 
 
@@ -29,6 +33,7 @@ public class RequestServlet extends HttpServlet {
 	private static final IDao<Integer, Speciality> specialityDao = SpecialityDaoImpl.INSTANCE;
 	private static final IDao<Integer, Persone> personeDao = PersoneDaoImpl.INSTANCE;
 	private static final IDao<Integer, State> stateDao = StateDaoImpl.INSTANCE;
+	private static final IDao<Integer, Faculty> facultyDao = FacultyDaoImpl.INSTANCE;
 	
 	
 	@Override
@@ -43,22 +48,46 @@ public class RequestServlet extends HttpServlet {
 	}
 	
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<Request> requests = requestDao.getAll(); 
+		String parameter = req.getParameter("faciltyId");
+		
 
-		List<RequestDto> dtos = requests.stream().map((entity) -> {
-			RequestDto dto = new RequestDto();
-			dto.setId(entity.getId());
-			Speciality speciality = specialityDao.getById(entity.getSpecialityId());
-			dto.setSpecialityName(speciality.getName());
-			Persone persone = personeDao.getById(entity.getPersonId());
-			dto.setPersoneName(persone.getFirstName()+" "+ persone.getSecondName());
-			State state = stateDao.getById(entity.getStateId());
-			dto.setStateName(state.getName());
-			return dto;
-		}).collect(Collectors.toList());
+		if (Strings.isNullOrEmpty(parameter) ) {
+			List<Request> requests = requestDao.getAll(); 
+			List<RequestDto> dtos = requests.stream().map((entity) -> {
+				RequestDto dto = new RequestDto();
+				dto.setId(entity.getId());
+				Speciality speciality = specialityDao.getById(entity.getSpecialityId());
+				dto.setSpecialityName(speciality.getName());
+				Faculty faculty = new Faculty();
+				faculty = facultyDao.getById(speciality.getFacultyId());
+				dto.setFacultyName(faculty.getName());
+				Persone persone = personeDao.getById(entity.getPersonId());
+				dto.setPersoneName(persone.getFirstName()+" "+ persone.getSecondName());
+				State state = stateDao.getById(entity.getStateId());
+				dto.setStateName(state.getName());
+				return dto;
+			}).collect(Collectors.toList());
+			req.setAttribute("list", dtos);
+			req.getRequestDispatcher("request-list.jsp").forward(req, res);
+		} else {
+			Integer requestId = Integer.parseInt(parameter); // read request parameter
+			List<Request> requests = requestDao.getAllwithId(requestId); 
+			List<RequestDto> dtos = requests.stream().map((entity) -> {
+				RequestDto dto = new RequestDto();
+				dto.setId(entity.getId());
+				Speciality speciality = specialityDao.getById(entity.getSpecialityId());
+				dto.setSpecialityName(speciality.getName());
+				Persone persone = personeDao.getById(entity.getPersonId());
+				dto.setPersoneName(persone.getFirstName()+" "+ persone.getSecondName());
+				State state = stateDao.getById(entity.getStateId());
+				dto.setStateName(state.getName());
+				return dto;
+			}).collect(Collectors.toList());
 
-		req.setAttribute("list", dtos);
-		req.getRequestDispatcher("request-list.jsp").forward(req, res);
+			req.setAttribute("list", dtos);
+			req.getRequestDispatcher("request-list.jsp").forward(req, res);
+		}
+		
 	}
 
 	private void handleEditView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

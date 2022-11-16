@@ -15,9 +15,10 @@
 		<thead>
 			<tr>
 				<th>id</th>
-				<th>person_id</th>
-				<th>speciality_id</th>
-				<th>state_id</th>
+				<th>person</th>
+				<th>facultyName</th>
+				<th>speciality</th>
+				<th>state</th>
 				<th>actions</th>
 			</tr>
 		</thead>
@@ -26,6 +27,7 @@
 				<tr>
 					<td><c:out value="${entity.id}" /></td>
 					<td><c:out value="${entity.personeName}" /></td>
+					<td><c:out value="${entity.facultyName}" /></td>
 					<td><c:out value="${entity.specialityName}" /></td>
 					<td><c:out value="${entity.stateName}" /></td>
 					<td><a class="btn-small btn-floating waves-effect waves-light blue" title="редактировать" href="/request?view=edit&id=${entity.id}"><i

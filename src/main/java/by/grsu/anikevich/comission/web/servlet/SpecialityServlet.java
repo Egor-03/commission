@@ -38,25 +38,50 @@ public class SpecialityServlet extends HttpServlet {
 	}
 	
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<Speciality> specialities = specialityDao.getAll(); 
-
-		List<SpecialityDto> dtos = specialities.stream().map((entity) -> {
-			SpecialityDto dto = new SpecialityDto();
-			dto.setId(entity.getId());
-			dto.setName(entity.getName());
-			Faculty faculty = facultyDao.getById(entity.getFacultyId());
-			dto.setFacultyName(faculty.getName());
-			Subject firtsSubject = subjectDao.getById(entity.getFirstSubjectId());
-			dto.setFirstSubjectName(firtsSubject.getName());
-			Subject secondSubject = subjectDao.getById(entity.getSecondSubjectId());
-			dto.setSecondSubjectName(secondSubject.getName());
-			Subject thirdSubject = subjectDao.getById(entity.getThirdSubjectId());
-			dto.setThirdSubjectName(thirdSubject.getName());
-			return dto;
-		}).collect(Collectors.toList());
-
-		req.setAttribute("list", dtos);
-		req.getRequestDispatcher("speciality-list.jsp").forward(req, res);
+		
+		String parameter = req.getParameter("faciltyId");
+		
+		
+		if (Strings.isNullOrEmpty(parameter) ) {	
+			List<Speciality> specialities = specialityDao.getAll(); 
+			List<SpecialityDto> dtos = specialities.stream().map((entity) -> {
+				SpecialityDto dto = new SpecialityDto();
+				dto.setId(entity.getId());
+				dto.setName(entity.getName());
+				Faculty faculty = facultyDao.getById(entity.getFacultyId());
+				dto.setFacultyName(faculty.getName());
+				Subject firtsSubject = subjectDao.getById(entity.getFirstSubjectId());
+				dto.setFirstSubjectName(firtsSubject.getName());
+				Subject secondSubject = subjectDao.getById(entity.getSecondSubjectId());
+				dto.setSecondSubjectName(secondSubject.getName());
+				Subject thirdSubject = subjectDao.getById(entity.getThirdSubjectId());
+				dto.setThirdSubjectName(thirdSubject.getName());
+				return dto;
+			}).collect(Collectors.toList());
+			req.setAttribute("list", dtos);
+			req.getRequestDispatcher("speciality-list.jsp").forward(req, res);
+		} else {
+			Integer specialityId = Integer.parseInt(parameter); // read request parameter
+			
+			List<Speciality> specialities = specialityDao.getAllwithId(specialityId); 
+			List<SpecialityDto> dtos = specialities.stream().map((entity) -> {
+				SpecialityDto dto = new SpecialityDto();
+				dto.setId(entity.getId());
+				dto.setName(entity.getName());
+				Faculty faculty = facultyDao.getById(entity.getFacultyId());
+				dto.setFacultyName(faculty.getName());
+				Subject firtsSubject = subjectDao.getById(entity.getFirstSubjectId());
+				dto.setFirstSubjectName(firtsSubject.getName());
+				Subject secondSubject = subjectDao.getById(entity.getSecondSubjectId());
+				dto.setSecondSubjectName(secondSubject.getName());
+				Subject thirdSubject = subjectDao.getById(entity.getThirdSubjectId());
+				dto.setThirdSubjectName(thirdSubject.getName());
+				return dto;
+			}).collect(Collectors.toList());
+			req.setAttribute("list", dtos);
+			req.getRequestDispatcher("speciality-list.jsp").forward(req, res);
+		}
+	
 	}
 
 	private void handleEditView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

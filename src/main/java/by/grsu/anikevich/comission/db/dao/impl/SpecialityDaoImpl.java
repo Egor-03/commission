@@ -84,6 +84,22 @@ public class SpecialityDaoImpl extends AbstractDao implements IDao<Integer, Spec
 
 		return entity;
 	}
+	public List<Speciality> getAllwithId(Integer id) {
+		List<Speciality> entitiesList = new ArrayList<>();
+		try (Connection c = createConnection()) {
+			PreparedStatement pstmt = c.prepareStatement("select * from speciality where id=?");
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Speciality entity = rowToEntity(rs);
+				entitiesList.add(entity);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("can't select Speciality entities", e);
+		}
+
+		return entitiesList;
+	}
 
 	@Override
 	public List<Speciality> getAll() {

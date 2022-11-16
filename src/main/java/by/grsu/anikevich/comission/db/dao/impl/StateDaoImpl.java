@@ -97,4 +97,10 @@ public class StateDaoImpl extends AbstractDao implements IDao<Integer, State> {
 		return entity;
 	}
 
+	@Override
+	public List<State> getAllwithId(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

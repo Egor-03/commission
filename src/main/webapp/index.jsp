@@ -10,7 +10,6 @@
 				<thead>
 					<tr>
 						<th>Faculty name</th>
-						<th>specialty</th>
 						<th></th>
 						<th>Register</th>
 						<th>Show candidates</th>

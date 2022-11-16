@@ -97,4 +97,10 @@ public class FacultyDaoImpl extends AbstractDao implements IDao<Integer, Faculty
 		entity.setName(rs.getString("name"));
 		return entity;
 	}
+
+	@Override
+	public List<Faculty> getAllwithId(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
