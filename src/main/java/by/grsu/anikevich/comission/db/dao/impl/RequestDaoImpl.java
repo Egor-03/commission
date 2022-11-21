@@ -142,6 +142,22 @@ public class RequestDaoImpl extends AbstractDao implements IDao<Integer, Request
 			throw new RuntimeException("can't select request entities", e);
 		}
 
+		return entitiesList;	
+	}
+	public List<Request> getAllwithSpeciality(Integer speciality_id) {
+		List<Request> entitiesList = new ArrayList<>();
+		try (Connection c = createConnection()) {
+			PreparedStatement pstmt = c.prepareStatement("select * from request where speciality_id=?");
+			pstmt.setInt(1, speciality_id);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Request entity = rowToEntity(rs);
+				entitiesList.add(entity);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("can't select request entities", e);
+		}
+
 		return entitiesList;
 		
 	}

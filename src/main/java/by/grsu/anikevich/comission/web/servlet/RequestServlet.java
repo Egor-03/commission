@@ -49,9 +49,10 @@ public class RequestServlet extends HttpServlet {
 	
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String parameter = req.getParameter("facultyId");
+		String specialityId = req.getParameter("specialityId");
 		
 
-		if (Strings.isNullOrEmpty(parameter) ) {
+		if (!Strings.isNullOrEmpty(parameter) ) {
 			List<Request> requests = requestDao.getAll(); 
 			List<RequestDto> dtos = requests.stream().map((entity) -> {
 				RequestDto dto = new RequestDto();
@@ -69,7 +70,29 @@ public class RequestServlet extends HttpServlet {
 			}).collect(Collectors.toList());
 			req.setAttribute("list", dtos);
 			req.getRequestDispatcher("request-list.jsp").forward(req, res);
+			
 		} else {
+			if (!Strings.isNullOrEmpty(specialityId) ) {
+				List<Request> requests = requestDao.getAllwithSpeciality(specialityId); 
+				List<RequestDto> dtos = requests.stream().map((entity) -> {
+					RequestDto dto = new RequestDto();
+					dto.setId(entity.getId());
+					Speciality speciality = specialityDao.getById(entity.getSpecialityId());
+					dto.setSpecialityName(speciality.getName());
+					Faculty faculty = new Faculty();
+					faculty = facultyDao.getById(speciality.getFacultyId());
+					dto.setFacultyName(faculty.getName());
+					Persone persone = personeDao.getById(entity.getPersonId());
+					dto.setPersoneName(persone.getFirstName()+" "+ persone.getSecondName());
+					State state = stateDao.getById(entity.getStateId());
+					dto.setStateName(state.getName());
+					return dto;
+				}).collect(Collectors.toList());
+				req.setAttribute("list", dtos);
+				req.getRequestDispatcher("request-list.jsp").forward(req, res);
+				
+			}else {
+			
 			Integer faciltyId = Integer.parseInt(parameter); // read request parameter
 			List<Request> requests = requestDao.getAllwithId(faciltyId); 
 			List<RequestDto> dtos = requests.stream().map((entity) -> {
@@ -87,6 +110,7 @@ public class RequestServlet extends HttpServlet {
 			req.setAttribute("list", dtos);
 			req.getRequestDispatcher("request-list.jsp").forward(req, res);
 		}
+			}
 		
 	}
 
