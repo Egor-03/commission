@@ -20,11 +20,12 @@
 
 
 			<ul class="left hide-on-med-and-down">
-				<li><a href="index.jsp"><i class="material-icons prefix">home</i>Faculty</a></li>
+				<li><a href="/faculty"><i class="material-icons prefix">home</i>Faculty</a></li>
 				<li><a class="dropdown-trigger" href="#!"	
-					data-target="dropdown_menu">Registration<i
+					data-target="dropdown_menu">Common objects<i
 						class="material-icons right">arrow_drop_down</i></a></li>
-				<li><a href="list.jsp">candidates list</a></li>
+						<li><a href="/persone">Persone list</a></li>	
+				<li><a href="/request">candidates list</a></li>
 			</ul>
 			<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i
 				class="material-icons">menu</i></a>
@@ -35,24 +36,25 @@
 	</nav>
 
 	<ul class="sidenav" id="mobile-demo">
-		<li><a href="index.jsp"><i class="material-icons prefix">home</i>Faculty</a></li>
+		<li><a href="/faculty"><i class="material-icons prefix">home</i>Faculty</a></li>
 		<li><a class="dropdown-trigger" href="#!"
 			data-target="dropdown_mobile">Registration<i
 				class="material-icons right">arrow_drop_down</i></a></li>
-		<li><a href="list.jsp">candidates list</a></li>
+		<li><a href="/persone">Persone list</a></li>		
+		<li><a href="/request">candidates list</a></li>
 
 	</ul>
 	<ul id="dropdown_mobile" class="dropdown-content">
-		<li><a href="#!">one</a></li>
-		<li><a href="#!">two</a></li>
+		<li><a href="/role">role</a></li>
+		<li><a href="/state">state</a></li>
 		<li class="divider"></li>
-		<li><a href="#!">three</a></li>
+		<li><a href="/subject">subject</a></li>
 	</ul>
 	<ul id="dropdown_menu" class="dropdown-content">
-		<li><a href="#!">one</a></li>
-		<li><a href="#!">two</a></li>
+		<li><a href="/role">role</a></li>
+		<li><a href="/state">state</a></li>
 		<li class="divider"></li>
-		<li><a href="#!">three</a></li>
+		<li><a href="/subject">subject</a></li>
 	</ul>
 
 

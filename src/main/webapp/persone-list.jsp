@@ -3,10 +3,11 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <c:set var="pageTitle" value="Persone list" scope="application"/>
 <t:wrapper>
-		<h1>Persone list</h1>
+		
 	<div class="row">
 		<div class="col s12">
 			<div class="center-align">
+			<h1>Persone list</h1>
 				<a class="btn-floating btn-large waves-effect waves-light" href="/persone?view=edit"><i class="material-icons">add</i></a>
 			</div>
 		</div>

@@ -102,11 +102,11 @@ public class RequestDaoImpl extends AbstractDao implements IDao<Integer, Request
 	
 
 	@Override
-	public List<Request> getAllwithId(Integer id) {
+	public List<Request> getAllwithId(Integer specialityId) {
 		List<Request> entitiesList = new ArrayList<>();
 		try (Connection c = createConnection()) {
-			PreparedStatement pstmt = c.prepareStatement("select * from request where id=?");
-			pstmt.setInt(1, id);
+			PreparedStatement pstmt = c.prepareStatement("select * from request where speciality_id=?");
+			pstmt.setInt(1, specialityId);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Request entity = rowToEntity(rs);

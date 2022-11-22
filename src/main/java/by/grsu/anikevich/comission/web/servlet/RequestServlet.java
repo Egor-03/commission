@@ -1,6 +1,7 @@
 package by.grsu.anikevich.comission.web.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,7 +54,18 @@ public class RequestServlet extends HttpServlet {
 		
 
 		if (!Strings.isNullOrEmpty(parameter) ) {
-			List<Request> requests = requestDao.getAll(); 
+			
+			List<Speciality> specialities = specialityDao.getAllwithId(Integer.parseInt(parameter));
+			List<Request> requests= new ArrayList<>();
+			for(Integer i=0;i<specialities.size();i++)
+			{
+				List<Request> tmp= new ArrayList<>();
+				tmp= requestDao.getAllwithId(specialities.get(i).getId());
+				for(Integer j=0;j<tmp.size();j++)
+				{
+					requests.add(tmp.get(j));
+				}
+			}
 			List<RequestDto> dtos = requests.stream().map((entity) -> {
 				RequestDto dto = new RequestDto();
 				dto.setId(entity.getId());
@@ -72,8 +84,8 @@ public class RequestServlet extends HttpServlet {
 			req.getRequestDispatcher("request-list.jsp").forward(req, res);
 			
 		} else {
-			if (!Strings.isNullOrEmpty(specialityId) ) {
-				List<Request> requests = requestDao.getAllwithSpeciality(specialityId); 
+			if (Strings.isNullOrEmpty(specialityId) ) {
+				List<Request> requests = requestDao.getAll(); 
 				List<RequestDto> dtos = requests.stream().map((entity) -> {
 					RequestDto dto = new RequestDto();
 					dto.setId(entity.getId());
@@ -93,8 +105,8 @@ public class RequestServlet extends HttpServlet {
 				
 			}else {
 			
-			Integer faciltyId = Integer.parseInt(parameter); // read request parameter
-			List<Request> requests = requestDao.getAllwithId(faciltyId); 
+			Integer specialityI = Integer.parseInt(specialityId); // read request parameter
+			List<Request> requests = requestDao.getAllwithId(specialityI); 
 			List<RequestDto> dtos = requests.stream().map((entity) -> {
 				RequestDto dto = new RequestDto();
 				dto.setId(entity.getId());

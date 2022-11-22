@@ -3,10 +3,11 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <c:set var="pageTitle" value="Speciality list" scope="application"/>
 <t:wrapper>
-		<h1>Speciality list</h1>
+		
 	<div class="row">
 		<div class="col s12">
 			<div class="center-align">
+			<h1>Speciality list</h1>
 				<a class="btn-floating btn-large waves-effect waves-light" href="/speciality?view=edit"><i class="material-icons">add</i></a>
 			</div>
 		</div>
@@ -27,7 +28,7 @@
 			<c:forEach var="entity" items="${list}" varStatus="loopCounter">
 				<tr>
 					<td><c:out value="${entity.id}" /></td>
-					<td><a href ="/request?specialityId=${entity.id}"> <c:out value="${entity.name}" /> </a> добавить чтоб именно нужная специальность </td>
+					<td><a href ="/request?specialityId=${entity.id}"> <c:out value="${entity.name}" /> </a></td>
 					<td><c:out value="${entity.firstSubjectName}" /></td>
 					<td><c:out value="${entity.secondSubjectName}" /></td>
 					<td><c:out value="${entity.thirdSubjectName}" /></td>
