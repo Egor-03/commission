@@ -5,10 +5,23 @@
 <t:wrapper>
 <c:choose>
 <c:when test="${empty dto.id}">
-			<h1>Create request</h1>
+			<div class="row">
+				<div class="col s12">
+					<div class="center-align">
+						<h1>Create request</h1>
+					</div>
+				</div>
+			</div>
+
 		</c:when>
 		<c:otherwise>
-			<h1>Edit request #${dto.id}</h1>
+		<div class="row">
+				<div class="col s12">
+					<div class="center-align">
+							<h1>Edit request #${dto.id}</h1>
+					</div>
+				</div>
+			</div>	
 		</c:otherwise>
 		</c:choose>
 		<form class="col s12" method="post" action="/request">
@@ -52,7 +65,7 @@
 		
 		<div class="row">
 			<div class="col s12 input-field center-align">
-				<a class="btn waves-effect waves-light red" href="/car"><i class="material-icons left">list</i>back</a>&nbsp;
+				<a class="btn waves-effect waves-light red" href="/request"><i class="material-icons left">list</i>back</a>&nbsp;
 				<button class="btn waves-effect waves-light" type="submit">
 					<i class="material-icons left">save</i>save
 				</button>

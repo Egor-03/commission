@@ -5,10 +5,23 @@
 <t:wrapper>
 	<c:choose>
 		<c:when test="${empty dto.id}">
-			<h1>Create persone</h1>
+		<div class="row">
+				<div class="col s12">
+					<div class="center-align">
+						<h1>Create persone</h1>
+					</div>
+				</div>
+			</div>
 		</c:when>
 		<c:otherwise>
-			<h1>Edit persone #${dto.id}</h1>
+		<div class="row">
+				<div class="col s12">
+					<div class="center-align">
+						<h1>Edit persone #${dto.id}</h1>
+					</div>
+				</div>
+			</div>
+			
 		</c:otherwise>
 	</c:choose>
 	<form class="col s12" method="post" action="/persone">
@@ -29,19 +42,19 @@
 		</div>
 		<div class="row">
 			<div class="input-field col s3">
-				<input type="text" name="firstName" value="${dto.firstName}">
+				<input type="text" name="firstName" required value="${dto.firstName}">
 				<label for="firstName">First_name</label>
 			</div>
 			<div class="input-field col s3">
-				<input type="text" name="secondName" value="${dto.secondName}">
+				<input type="text" name="secondName" required value="${dto.secondName}">
 				<label for="secondName">Second_name</label>
 			</div>
 			<div class="input-field col s3">
-				<input type="text" name="patronymic" value="${dto.patronymic}">
+				<input type="text" name="patronymic" required  value="${dto.patronymic}">
 				<label for="patronymic">Patronymic</label>
 			</div>
 			<div class="input-field col s3">
-				<input type="text" name="mail" value="${dto.mail}"> <label
+				<input type="email" name="mail" required value="${dto.mail}"> <label
 					for="mail">Mail</label>
 			</div>
 		</div>

@@ -5,10 +5,24 @@
 <t:wrapper>
 	<c:choose>
 		<c:when test="${empty dto.id}">
-			<h1>Create speciality</h1>
+			<div class="row">
+				<div class="col s12">
+					<div class="center-align">
+						<h1>Create speciality</h1>
+					</div>
+				</div>
+			</div>
+
 		</c:when>
 		<c:otherwise>
-			<h1>Edit speciality #${dto.id}</h1>
+			<div class="row">
+				<div class="col s12">
+					<div class="center-align">
+						<h1>Edit speciality #${dto.id}</h1>
+					</div>
+				</div>
+			</div>
+
 		</c:otherwise>
 	</c:choose>
 	<form class="col s6" method="post" action="/speciality">
@@ -46,26 +60,26 @@
 				</select>
 			</div>
 			<div class="col s6">
-			<label for="facultyId">facultyId</label> <select
-					name="facultyId" class="browser-default" required>
+				<label for="facultyId">facultyId</label> <select name="facultyId"
+					class="browser-default" required>
 					<option value="">--select Faculty --</option>
 					<c:forEach items="${allFaculties}" var="faculty">
 						<option value="${faculty.id}"
 							<c:if test="${faculty.id eq dto.facultyId}">selected="selected"</c:if>>${faculty.name}</option>
 					</c:forEach>
 				</select>
-				
+
 			</div>
 			<div class="input-field col s6">
-				<input type="text" name="name" value="${dto.name}"> <label
-					for="name">name</label>
+				<input type="text" name="name" required value="${dto.name}">
+				<label for="name">name</label>
 			</div>
 
 		</div>
 
 		<div class="row">
 			<div class="col s12 input-field center-align">
-				<a class="btn waves-effect waves-light red" href="/car"><i
+				<a class="btn waves-effect waves-light red" href="/speciality"><i
 					class="material-icons left">list</i>back</a>&nbsp;
 				<button class="btn waves-effect waves-light" type="submit">
 					<i class="material-icons left">save</i>save

@@ -113,6 +113,9 @@ public class RequestServlet extends HttpServlet {
 				dto.setId(entity.getId());
 				Speciality speciality = specialityDao.getById(entity.getSpecialityId());
 				dto.setSpecialityName(speciality.getName());
+				Faculty faculty = new Faculty();
+				faculty = facultyDao.getById(speciality.getFacultyId());
+				dto.setFacultyName(faculty.getName());
 				Persone persone = personeDao.getById(entity.getPersonId());
 				dto.setPersoneName(persone.getFirstName()+" "+ persone.getSecondName());
 				State state = stateDao.getById(entity.getStateId());

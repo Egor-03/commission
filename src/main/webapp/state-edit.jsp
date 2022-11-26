@@ -5,17 +5,31 @@
 <t:wrapper>
 <c:choose>
 <c:when test="${empty dto.id}">
-			<h1>Create state</h1>
+	<div class="row">
+				<div class="col s12">
+					<div class="center-align">
+							<h1>Create state</h1>
+					</div>
+				</div>
+			</div>
+		
 		</c:when>
 		<c:otherwise>
-			<h1>Edit state #${dto.id}</h1>
+			<div class="row">
+				<div class="col s12">
+					<div class="center-align">
+							<h1>Edit state #${dto.id}</h1>
+					</div>
+				</div>
+			</div>
+		
 		</c:otherwise>
 		</c:choose>
 		<form class="col s12" method="post" action="/state">
 		<div class="row">
 			<input type="hidden" name="id" value="${dto.id}" />
 				<div class="input-field col s6">
-					<input type="text" name="name" value="${dto.name}"> <label for="name">name</label>
+					<input type="text" name="name" required value="${dto.name}"> <label for="name">name</label>
 				</div>
 			</div>
 	
