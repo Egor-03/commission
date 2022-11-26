@@ -18,8 +18,6 @@
 			<th>Faculty id</th>
 				<th>Faculty name</th>
 				<th></th>
-				<th>Register</th>
-				<th>Show candidates</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
@@ -29,10 +27,11 @@
 					<td><c:out value="${entity.id}" /></td>
 					<td><c:out value="${entity.name}" /></td>
 					<th></th>
-					<td><a href="/speciality?facultyId=${entity.id}" class="waves-effect waves-light btn">registre</a></td>
-					<td><a href="/request?facultyId=${entity.id}" class="waves-effect waves-light btn">show </a></td>
-					<td><a class="btn-small btn-floating waves-effect waves-light blue" title="редактировать" href="/faculty?view=edit&id=${entity.id}"><i
-							class="material-icons">edit</i></a><a class="btn-small btn-floating waves-effect waves-light red" title="удалить" onclick="sendHTTPDelete('/faculty?id=${entity.id}')"><i class="material-icons">delete</i></a></td>
+					<td><a class="btn-small btn-floating waves-effect waves-light blue" title="Redact" href="/faculty?view=edit&id=${entity.id}"><i class="material-icons">edit</i></a>
+						<a class="btn-small btn-floating waves-effect waves-light green" title="Choose" href="/speciality?facultyId=${entity.id}" ><i class="material-icons">check_circle</i></a>
+						<a class="btn-small btn-floating waves-effect waves-light black" title="All requests" href="/request?facultyId=${entity.id}" ><i class="material-icons">list</i></a>
+						<a class="btn-small btn-floating waves-effect waves-light red" title="Delete" onclick="sendHTTPDelete('/faculty?id=${entity.id}')"><i class="material-icons">delete</i>
+							</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

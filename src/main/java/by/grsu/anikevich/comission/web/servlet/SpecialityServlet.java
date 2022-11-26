@@ -98,8 +98,28 @@ public class SpecialityServlet extends HttpServlet {
 			dto.setName(entity.getName());
 		}
 		req.setAttribute("dto", dto);
+		req.setAttribute("allSubjects", getAllSubjectsDtos());
+		req.setAttribute("allFaculties", getAllFacultyDtos());
 		req.getRequestDispatcher("speciality-edit.jsp").forward(req, res);
 	}
+	
+	private List<Subject> getAllSubjectsDtos() {
+		return subjectDao.getAll().stream().map((entity) -> {
+			Subject dto = new Subject();
+			dto.setId(entity.getId());
+			dto.setName(entity.getName());
+			return dto;
+		}).collect(Collectors.toList());
+	}
+	private List<Faculty> getAllFacultyDtos() {
+		return facultyDao.getAll().stream().map((entity) -> {
+			Faculty dto = new Faculty();
+			dto.setId(entity.getId());
+			dto.setName(entity.getName());
+			return dto;
+		}).collect(Collectors.toList());
+	}
+	
 	
 	
 	@Override

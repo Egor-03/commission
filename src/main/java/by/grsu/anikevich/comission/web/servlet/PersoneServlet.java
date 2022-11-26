@@ -16,6 +16,7 @@ import by.grsu.anikevich.comission.db.dao.impl.PersoneDaoImpl;
 import by.grsu.anikevich.comission.db.dao.impl.RoleDaoImpl;
 import by.grsu.anikevich.comission.db.model.Persone;
 import by.grsu.anikevich.comission.db.model.Role;
+import by.grsu.anikevich.comission.db.model.Subject;
 import by.grsu.anikevich.comission.web.dto.PersoneDto;
 
 public class PersoneServlet extends HttpServlet {
@@ -68,7 +69,16 @@ public class PersoneServlet extends HttpServlet {
 			dto.setRoleId(entity.getRoleId());
 		}
 		req.setAttribute("dto", dto);
+		req.setAttribute("allRoles", getAllRolesDtos());
 		req.getRequestDispatcher("persone-edit.jsp").forward(req, res);
+	}
+	private List<Role> getAllRolesDtos() {
+		return roleDao.getAll().stream().map((entity) -> {
+			Role dto = new Role();
+			dto.setId(entity.getId());
+			dto.setName(entity.getName());
+			return dto;
+		}).collect(Collectors.toList());
 	}
 	
 	

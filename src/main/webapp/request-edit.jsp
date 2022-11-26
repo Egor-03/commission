@@ -15,18 +15,39 @@
 		<div class="row">
 			<input type="hidden" name="id" value="${dto.id}" />
 			<div class="row">
-				<div class="input-field col s12">  
-					<input type="text" name="personId" value="${dto.personId}" > <label for="personId">PersonId</label>
+				<div class="col s12 m6 l4">
+					<label for="personId">RoleId</label> <select name="personId"
+						class="browser-default" required>
+						<option value="">--select Persone --</option>
+						<c:forEach items="${allPersons}" var="persone">
+							<option value="${persone.id}"
+								<c:if test="${persone.id eq dto.personId}">selected="selected"</c:if>>${persone.firstName} ${persone.secondName}</option>
+						</c:forEach>
+					</select>
 				</div>
-			</div>
-			<div class="row">
-				<div class="input-field col s6">
-					<input type="text" name="specialityId" value="${dto.specialityId}"> <label for="specialityId">specialityId</label>
+				<div class="col s12 m6 l4">
+					<label for="specialityId">SpecialityId</label> <select name="specialityId"
+						class="browser-default" required>
+						<option value="">--select Speciality --</option>
+						<c:forEach items="${allSpecialites}" var="speciality">
+							<option value="${speciality.id}"
+								<c:if test="${speciality.id eq dto.specialityId}">selected="selected"</c:if>>${speciality.name}</option>
+						</c:forEach>
+					</select>
+				
 				</div>
-				<div class="input-field col s6">
-					<input type="text" name="stateId" value="${dto.stateId}"> <label for="stateId">stateId</label>
+				<div class="col s12 m6 l4">
+					<label for="stateId">StateId</label> <select name="stateId"
+						class="browser-default" required>
+						<option value="">--select State --</option>
+						<c:forEach items="${allStates}" var="state">
+							<option value="${state.id}"
+								<c:if test="${state.id eq dto.stateId}">selected="selected"</c:if>>${state.name}</option>
+						</c:forEach>
+					</select>
+				
 				</div>
-			</div>
+			</div>	
 		</div>
 		
 		<div class="row">

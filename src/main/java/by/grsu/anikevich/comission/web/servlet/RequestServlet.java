@@ -21,6 +21,7 @@ import by.grsu.anikevich.comission.db.dao.impl.StateDaoImpl;
 import by.grsu.anikevich.comission.db.model.Faculty;
 import by.grsu.anikevich.comission.db.model.Persone;
 import by.grsu.anikevich.comission.db.model.Request;
+import by.grsu.anikevich.comission.db.model.Role;
 import by.grsu.anikevich.comission.db.model.Speciality;
 import by.grsu.anikevich.comission.db.model.State;
 import by.grsu.anikevich.comission.db.model.Subject;
@@ -138,9 +139,38 @@ public class RequestServlet extends HttpServlet {
 			dto.setId(entity.getId());
 		}
 		req.setAttribute("dto", dto);
+		req.setAttribute("allPersons", getAllPersoneDtos());
+		req.setAttribute("allSpecialites", getAllSpecialitesDtos());
+		req.setAttribute("allStates", getAllStatesDtos());
 		req.getRequestDispatcher("request-edit.jsp").forward(req, res);
 	}
-	
+	private List<Persone> getAllPersoneDtos() {
+		return personeDao.getAll().stream().map((entity) -> {
+			Persone dto = new Persone();
+			dto.setId(entity.getId());
+			dto.setFirstName(entity.getFirstName());
+			dto.setSecondName(entity.getSecondName());
+			return dto;
+		}).collect(Collectors.toList());
+	}
+	private List<Speciality> getAllSpecialitesDtos() {
+		return specialityDao.getAll().stream().map((entity) -> {
+			Speciality dto = new Speciality();
+			dto.setId(entity.getId());
+			dto.setName(entity.getName());
+			
+			return dto;
+		}).collect(Collectors.toList());
+	}
+	private List<State> getAllStatesDtos() {
+		return stateDao.getAll().stream().map((entity) -> {
+			State dto = new State();
+			dto.setId(entity.getId());
+			dto.setName(entity.getName());
+			
+			return dto;
+		}).collect(Collectors.toList());
+	}
 	
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

@@ -16,12 +16,12 @@
 		<thead>
 			<tr>
 				<th>id</th>
-				<th>name</th>
-				<th>first_subject_id</th>
-				<th>second_subject_id</th>
-				<th>third_subject_id</th>
-				<th>faculty_id</th>
-				<th>actions</th>
+				<th>Name</th>
+				<th>First_subject</th>
+				<th>Second_subject</th>
+				<th>Third_subject</th>
+				<th>Faculty</th>
+				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
