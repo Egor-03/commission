@@ -19,7 +19,7 @@ import by.grsu.anikevich.comission.db.model.Faculty;
 
 public class FacultyServlet extends HttpServlet {
 	private static final IDao<Integer, Faculty> facultyDao = FacultyDaoImpl.INSTANCE;
-	
+
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doGet");
@@ -30,9 +30,9 @@ public class FacultyServlet extends HttpServlet {
 			handleListView(req, res);
 		}
 	}
-	
+
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<Faculty> faculties = facultyDao.getAll(); 
+		List<Faculty> faculties = facultyDao.getAll();
 
 		List<Faculty> dtos = faculties.stream().map((entity) -> {
 			Faculty dto = new Faculty();
@@ -57,14 +57,14 @@ public class FacultyServlet extends HttpServlet {
 		req.setAttribute("dto", dto);
 		req.getRequestDispatcher("faculty-edit.jsp").forward(req, res);
 	}
-	
-	
+
+
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doPost");
 		Faculty faculty = new Faculty();
 		String facultyIdStr = req.getParameter("id");
-		
+
 		faculty.setName(req.getParameter("name"));
 		if (Strings.isNullOrEmpty(facultyIdStr)) {
 			facultyDao.insert(faculty);
@@ -74,7 +74,7 @@ public class FacultyServlet extends HttpServlet {
 		}
 		res.sendRedirect("/faculty");
 	}
-	
+
 	@Override
 	public void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doDelete");

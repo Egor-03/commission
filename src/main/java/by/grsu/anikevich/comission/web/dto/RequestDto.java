@@ -63,7 +63,7 @@ public class RequestDto {
 	public void setFacultyName(String facultyName) {
 		this.facultyName = facultyName;
 	}
-	
 
-	
+
+
 }

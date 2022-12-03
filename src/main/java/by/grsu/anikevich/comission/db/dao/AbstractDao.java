@@ -67,7 +67,7 @@ public class AbstractDao {
 		File dbDataFile = new File(String.format("%s/%s", DB_FOLDER, DB_NAME));
 		dbDataFile.delete();
 	}
-	
+
 	public static boolean isDbExist() throws SQLException {
 		try (Connection c = createConnection()) {
 			DatabaseMetaData metaData = c.getMetaData();

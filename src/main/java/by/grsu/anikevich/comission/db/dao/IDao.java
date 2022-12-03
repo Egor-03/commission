@@ -2,8 +2,6 @@ package by.grsu.anikevich.comission.db.dao;
 
 import java.util.List;
 
-import by.grsu.anikevich.comission.db.model.Speciality;
-
 public interface IDao<ID, TYPE> {
 	void insert(TYPE t);
 

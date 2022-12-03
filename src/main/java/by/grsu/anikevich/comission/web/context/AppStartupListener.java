@@ -56,18 +56,18 @@ public class AppStartupListener implements ServletContextListener {
 		subjectEntity.setName("subjectname");
 		subjectDao.insert(subjectEntity);
 		System.out.println("created: " + subjectEntity);
-		
+
 		State stateEntity = new State();
 		stateEntity.setName("statename");
 		stateDao.insert(stateEntity);
 		System.out.println("created: " + stateEntity);
-		
+
 		Role roleEntity = new Role();
 		roleEntity.setName("rolename");
 		roleDao.insert(roleEntity);
 		System.out.println("created: " + roleEntity);
-		
-		
+
+
 		Persone personeEntity = new Persone();
 		personeEntity.setRoleId(roleEntity.getId());
 		personeEntity.setFirstName("first_name");
@@ -76,9 +76,9 @@ public class AppStartupListener implements ServletContextListener {
 		personeEntity.setMail("mail");
 		personeDao.insert(personeEntity);
 		System.out.println("created: " + personeEntity);
-		
+
 		Speciality specialityEntity = new Speciality();
-		
+
 		specialityEntity.setFirstSubjectId(subjectEntity.getId());
 		specialityEntity.setSecondSubjectId(subjectEntity.getId());
 		specialityEntity.setThirdSubjectId(subjectEntity.getId());
@@ -86,9 +86,9 @@ public class AppStartupListener implements ServletContextListener {
 		specialityEntity.setFacultyId(facultyEntity.getId());
 		specialityDao.insert(specialityEntity);
 		System.out.println("created: " + specialityEntity);
-		
-		
-		
+
+
+
 		Request requestEntity = new Request();
 		requestEntity.setPersonId(personeEntity.getId());
 		requestEntity.setSpecialityId(specialityEntity.getId());

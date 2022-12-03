@@ -10,7 +10,6 @@ import java.util.List;
 import by.grsu.anikevich.comission.db.dao.AbstractDao;
 import by.grsu.anikevich.comission.db.dao.IDao;
 import by.grsu.anikevich.comission.db.model.Request;
-import by.grsu.anikevich.comission.db.model.Speciality;
 
 public class RequestDaoImpl extends AbstractDao implements IDao<Integer, Request> {
 
@@ -82,7 +81,7 @@ public class RequestDaoImpl extends AbstractDao implements IDao<Integer, Request
 
 		return entity;
 	}
-	
+
 	@Override
 	public List<Request> getAll() {
 		List<Request> entitiesList = new ArrayList<>();
@@ -99,7 +98,7 @@ public class RequestDaoImpl extends AbstractDao implements IDao<Integer, Request
 		return entitiesList;
 	}
 
-	
+
 
 	@Override
 	public List<Request> getAllwithId(Integer specialityId) {
@@ -117,7 +116,7 @@ public class RequestDaoImpl extends AbstractDao implements IDao<Integer, Request
 		}
 
 		return entitiesList;
-		
+
 	}
 	private Request rowToEntity(ResultSet rs) throws SQLException {
 		Request entity = new Request();
@@ -127,7 +126,7 @@ public class RequestDaoImpl extends AbstractDao implements IDao<Integer, Request
 		entity.setStateId(rs.getInt("state_id"));
 		return entity;
 	}
-	
+
 	public List<Request> getAllwith(Integer id) {
 		List<Request> entitiesList = new ArrayList<>();
 		try (Connection c = createConnection()) {
@@ -142,7 +141,7 @@ public class RequestDaoImpl extends AbstractDao implements IDao<Integer, Request
 			throw new RuntimeException("can't select request entities", e);
 		}
 
-		return entitiesList;	
+		return entitiesList;
 	}
 	public List<Request> getAllwithSpeciality(Integer speciality_id) {
 		List<Request> entitiesList = new ArrayList<>();
@@ -159,6 +158,6 @@ public class RequestDaoImpl extends AbstractDao implements IDao<Integer, Request
 		}
 
 		return entitiesList;
-		
+
 	}
 }

@@ -21,7 +21,7 @@ import by.grsu.anikevich.comission.db.model.State;
 
 public class StateServlet extends HttpServlet {
 	private static final IDao<Integer, State> stateDao = StateDaoImpl.INSTANCE;
-	
+
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doGet");
@@ -32,9 +32,9 @@ public class StateServlet extends HttpServlet {
 			handleListView(req, res);
 		}
 	}
-	
+
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<State> states = stateDao.getAll(); 
+		List<State> states = stateDao.getAll();
 
 		List<State> dtos = states.stream().map((entity) -> {
 			State dto = new State();
@@ -59,14 +59,14 @@ public class StateServlet extends HttpServlet {
 		req.setAttribute("dto", dto);
 		req.getRequestDispatcher("state-edit.jsp").forward(req, res);
 	}
-	
-	
+
+
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doPost");
 		State state = new State();
 		String stateIdStr = req.getParameter("id");
-		
+
 		state.setName(req.getParameter("name"));
 		if (Strings.isNullOrEmpty(stateIdStr)) {
 			stateDao.insert(state);
@@ -76,7 +76,7 @@ public class StateServlet extends HttpServlet {
 		}
 		res.sendRedirect("/state");
 	}
-	
+
 	@Override
 	public void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doDelete");

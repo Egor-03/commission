@@ -37,7 +37,7 @@
 
 	<ul class="sidenav" id="mobile-demo">
 		<li><a href="/faculty"><i class="material-icons prefix">home</i>Faculty</a></li>
-		<li><a class="dropdown-trigger" href="#!"
+		<li><a class="dropdown-trigger" 
 			data-target="dropdown_mobile">Registration<i
 				class="material-icons right">arrow_drop_down</i></a></li>
 		<li><a href="/persone">Persone list</a></li>		

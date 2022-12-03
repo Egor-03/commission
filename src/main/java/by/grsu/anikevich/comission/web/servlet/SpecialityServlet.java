@@ -24,8 +24,8 @@ public class SpecialityServlet extends HttpServlet {
 	private static final IDao<Integer, Speciality> specialityDao = SpecialityDaoImpl.INSTANCE;
 	private static final IDao<Integer, Faculty> facultyDao = FacultyDaoImpl.INSTANCE;
 	private static final IDao<Integer, Subject> subjectDao = SubjectDaoImpl.INSTANCE;
-	
-	
+
+
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doGet");
@@ -36,14 +36,14 @@ public class SpecialityServlet extends HttpServlet {
 			handleListView(req, res);
 		}
 	}
-	
+
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		
+
 		String parameter = req.getParameter("facultyId");
-		
-		
-		if (Strings.isNullOrEmpty(parameter) ) {	
-			List<Speciality> specialities = specialityDao.getAll(); 
+
+
+		if (Strings.isNullOrEmpty(parameter) ) {
+			List<Speciality> specialities = specialityDao.getAll();
 			List<SpecialityDto> dtos = specialities.stream().map((entity) -> {
 				SpecialityDto dto = new SpecialityDto();
 				dto.setId(entity.getId());
@@ -62,8 +62,8 @@ public class SpecialityServlet extends HttpServlet {
 			req.getRequestDispatcher("speciality-list.jsp").forward(req, res);
 		} else {
 			Integer facultyId = Integer.parseInt(parameter); // read request parameter
-			
-			List<Speciality> specialities = specialityDao.getAllwithId(facultyId); 
+
+			List<Speciality> specialities = specialityDao.getAllwithId(facultyId);
 			List<SpecialityDto> dtos = specialities.stream().map((entity) -> {
 				SpecialityDto dto = new SpecialityDto();
 				dto.setId(entity.getId());
@@ -81,7 +81,7 @@ public class SpecialityServlet extends HttpServlet {
 			req.setAttribute("list", dtos);
 			req.getRequestDispatcher("speciality-list.jsp").forward(req, res);
 		}
-	
+
 	}
 
 	private void handleEditView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -102,7 +102,7 @@ public class SpecialityServlet extends HttpServlet {
 		req.setAttribute("allFaculties", getAllFacultyDtos());
 		req.getRequestDispatcher("speciality-edit.jsp").forward(req, res);
 	}
-	
+
 	private List<Subject> getAllSubjectsDtos() {
 		return subjectDao.getAll().stream().map((entity) -> {
 			Subject dto = new Subject();
@@ -119,9 +119,9 @@ public class SpecialityServlet extends HttpServlet {
 			return dto;
 		}).collect(Collectors.toList());
 	}
-	
-	
-	
+
+
+
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doPost");
@@ -131,13 +131,13 @@ public class SpecialityServlet extends HttpServlet {
 		String secondSubjectId = req.getParameter("secondSubjectId");
 		String thirdSubjectId = req.getParameter("thirdSubjectId");
 		String facultyIdStr = req.getParameter("facultyId");
-		
+
 		speciality.setName(req.getParameter("name"));
 		speciality.setFacultyId(facultyIdStr== null ? null: Integer.parseInt(facultyIdStr));
 		speciality.setFirstSubjectId(firstSubjectId== null ? null: Integer.parseInt(firstSubjectId));
 		speciality.setSecondSubjectId(secondSubjectId== null ? null: Integer.parseInt(secondSubjectId));
 		speciality.setThirdSubjectId(thirdSubjectId== null ? null: Integer.parseInt(thirdSubjectId));
-		
+
 		if (Strings.isNullOrEmpty(specialityIdStr)) {
 			specialityDao.insert(speciality);
 		} else {
@@ -146,7 +146,7 @@ public class SpecialityServlet extends HttpServlet {
 		}
 		res.sendRedirect("/speciality");
 	}
-	
+
 	@Override
 	public void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doDelete");

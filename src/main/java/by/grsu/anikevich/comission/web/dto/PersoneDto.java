@@ -8,7 +8,7 @@ public class PersoneDto {
 	private String secondName;
 	private String patronymic;
 	private String mail;
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -51,5 +51,5 @@ public class PersoneDto {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	
+
 }

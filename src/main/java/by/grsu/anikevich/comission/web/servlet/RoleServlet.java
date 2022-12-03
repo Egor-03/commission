@@ -20,7 +20,7 @@ import by.grsu.anikevich.comission.db.model.Role;
 
 public class RoleServlet extends HttpServlet {
 	private static final IDao<Integer, Role> roleDao = RoleDaoImpl.INSTANCE;
-	
+
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doGet");
@@ -31,9 +31,9 @@ public class RoleServlet extends HttpServlet {
 			handleListView(req, res);
 		}
 	}
-	
+
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<Role> roles = roleDao.getAll(); 
+		List<Role> roles = roleDao.getAll();
 
 		List<Role> dtos = roles.stream().map((entity) -> {
 			Role dto = new Role();
@@ -58,14 +58,14 @@ public class RoleServlet extends HttpServlet {
 		req.setAttribute("dto", dto);
 		req.getRequestDispatcher("role-edit.jsp").forward(req, res);
 	}
-	
-	
+
+
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doPost");
 		Role faculty = new Role();
 		String facultyIdStr = req.getParameter("id");
-		
+
 		faculty.setName(req.getParameter("name"));
 		if (Strings.isNullOrEmpty(facultyIdStr)) {
 			roleDao.insert(faculty);
@@ -75,7 +75,7 @@ public class RoleServlet extends HttpServlet {
 		}
 		res.sendRedirect("/role");
 	}
-	
+
 	@Override
 	public void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doDelete");

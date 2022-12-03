@@ -21,12 +21,9 @@ import by.grsu.anikevich.comission.db.dao.impl.StateDaoImpl;
 import by.grsu.anikevich.comission.db.model.Faculty;
 import by.grsu.anikevich.comission.db.model.Persone;
 import by.grsu.anikevich.comission.db.model.Request;
-import by.grsu.anikevich.comission.db.model.Role;
 import by.grsu.anikevich.comission.db.model.Speciality;
 import by.grsu.anikevich.comission.db.model.State;
-import by.grsu.anikevich.comission.db.model.Subject;
 import by.grsu.anikevich.comission.web.dto.RequestDto;
-import by.grsu.anikevich.comission.web.dto.SpecialityDto;
 
 
 
@@ -36,8 +33,8 @@ public class RequestServlet extends HttpServlet {
 	private static final IDao<Integer, Persone> personeDao = PersoneDaoImpl.INSTANCE;
 	private static final IDao<Integer, State> stateDao = StateDaoImpl.INSTANCE;
 	private static final IDao<Integer, Faculty> facultyDao = FacultyDaoImpl.INSTANCE;
-	
-	
+
+
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doGet");
@@ -48,14 +45,14 @@ public class RequestServlet extends HttpServlet {
 			handleListView(req, res);
 		}
 	}
-	
+
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String parameter = req.getParameter("facultyId");
 		String specialityId = req.getParameter("specialityId");
-		
+
 
 		if (!Strings.isNullOrEmpty(parameter) ) {
-			
+
 			List<Speciality> specialities = specialityDao.getAllwithId(Integer.parseInt(parameter));
 			List<Request> requests= new ArrayList<>();
 			for(Integer i=0;i<specialities.size();i++)
@@ -83,10 +80,10 @@ public class RequestServlet extends HttpServlet {
 			}).collect(Collectors.toList());
 			req.setAttribute("list", dtos);
 			req.getRequestDispatcher("request-list.jsp").forward(req, res);
-			
+
 		} else {
 			if (Strings.isNullOrEmpty(specialityId) ) {
-				List<Request> requests = requestDao.getAll(); 
+				List<Request> requests = requestDao.getAll();
 				List<RequestDto> dtos = requests.stream().map((entity) -> {
 					RequestDto dto = new RequestDto();
 					dto.setId(entity.getId());
@@ -103,11 +100,11 @@ public class RequestServlet extends HttpServlet {
 				}).collect(Collectors.toList());
 				req.setAttribute("list", dtos);
 				req.getRequestDispatcher("request-list.jsp").forward(req, res);
-				
+
 			}else {
-			
+
 			Integer specialityI = Integer.parseInt(specialityId); // read request parameter
-			List<Request> requests = requestDao.getAllwithId(specialityI); 
+			List<Request> requests = requestDao.getAllwithId(specialityI);
 			List<RequestDto> dtos = requests.stream().map((entity) -> {
 				RequestDto dto = new RequestDto();
 				dto.setId(entity.getId());
@@ -127,7 +124,7 @@ public class RequestServlet extends HttpServlet {
 			req.getRequestDispatcher("request-list.jsp").forward(req, res);
 		}
 			}
-		
+
 	}
 
 	private void handleEditView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -161,7 +158,7 @@ public class RequestServlet extends HttpServlet {
 			Speciality dto = new Speciality();
 			dto.setId(entity.getId());
 			dto.setName(entity.getName());
-			
+
 			return dto;
 		}).collect(Collectors.toList());
 	}
@@ -170,11 +167,11 @@ public class RequestServlet extends HttpServlet {
 			State dto = new State();
 			dto.setId(entity.getId());
 			dto.setName(entity.getName());
-			
+
 			return dto;
 		}).collect(Collectors.toList());
 	}
-	
+
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doPost");
@@ -183,11 +180,11 @@ public class RequestServlet extends HttpServlet {
 		String personeIdStr = req.getParameter("personId");
 		String specialityIdstr = req.getParameter("specialityId");
 		String stateIdStr = req.getParameter("stateId");
-		
+
 		request.setPersonId(personeIdStr== null ? null: Integer.parseInt(personeIdStr));
 		request.setSpecialityId(specialityIdstr== null ? null: Integer.parseInt(specialityIdstr));
 		request.setStateId(stateIdStr== null ? null: Integer.parseInt(stateIdStr));
-		
+
 		if (Strings.isNullOrEmpty(requestIdStr)) {
 			requestDao.insert(request);
 		} else {
@@ -196,7 +193,7 @@ public class RequestServlet extends HttpServlet {
 		}
 		res.sendRedirect("/request");
 	}
-	
+
 	@Override
 	public void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doDelete");

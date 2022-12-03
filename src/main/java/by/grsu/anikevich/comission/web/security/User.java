@@ -2,8 +2,6 @@ package by.grsu.anikevich.comission.web.security;
 
 import java.io.Serializable;
 
-import by.grsu.anikevich.comission.db.model.Persone;
-
 public class User  implements Serializable {
 
 	public User(String email, String password, String firstName, String lastName) {

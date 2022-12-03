@@ -16,13 +16,12 @@ import by.grsu.anikevich.comission.db.dao.impl.PersoneDaoImpl;
 import by.grsu.anikevich.comission.db.dao.impl.RoleDaoImpl;
 import by.grsu.anikevich.comission.db.model.Persone;
 import by.grsu.anikevich.comission.db.model.Role;
-import by.grsu.anikevich.comission.db.model.Subject;
 import by.grsu.anikevich.comission.web.dto.PersoneDto;
 
 public class PersoneServlet extends HttpServlet {
 	private static final IDao<Integer, Persone> personeDao = PersoneDaoImpl.INSTANCE;
 	private static final IDao<Integer, Role> roleDao = RoleDaoImpl.INSTANCE;
-	
+
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doGet");
@@ -33,9 +32,9 @@ public class PersoneServlet extends HttpServlet {
 			handleListView(req, res);
 		}
 	}
-	
+
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<Persone> persones = personeDao.getAll(); 
+		List<Persone> persones = personeDao.getAll();
 
 		List<PersoneDto> dtos = persones.stream().map((entity) -> {
 			PersoneDto dto = new PersoneDto();
@@ -80,8 +79,8 @@ public class PersoneServlet extends HttpServlet {
 			return dto;
 		}).collect(Collectors.toList());
 	}
-	
-	
+
+
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doPost");
@@ -101,7 +100,7 @@ public class PersoneServlet extends HttpServlet {
 		}
 		res.sendRedirect("/persone");
 	}
-	
+
 	@Override
 	public void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doDelete");

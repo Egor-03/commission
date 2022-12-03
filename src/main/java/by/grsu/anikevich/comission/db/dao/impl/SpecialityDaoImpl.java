@@ -84,6 +84,7 @@ public class SpecialityDaoImpl extends AbstractDao implements IDao<Integer, Spec
 
 		return entity;
 	}
+	@Override
 	public List<Speciality> getAllwithId(Integer faculty_id) {
 		List<Speciality> entitiesList = new ArrayList<>();
 		try (Connection c = createConnection()) {

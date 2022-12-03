@@ -21,7 +21,7 @@ import by.grsu.anikevich.comission.db.model.Subject;
 
 public class SubjectServlet extends HttpServlet {
 	private static final IDao<Integer,  Subject> subjectDao =  SubjectDaoImpl.INSTANCE;
-	
+
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doGet");
@@ -32,9 +32,9 @@ public class SubjectServlet extends HttpServlet {
 			handleListView(req, res);
 		}
 	}
-	
+
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<Subject> subjects = subjectDao.getAll(); 
+		List<Subject> subjects = subjectDao.getAll();
 
 		List<Subject> dtos = subjects.stream().map((entity) -> {
 			Subject dto = new Subject();
@@ -59,14 +59,14 @@ public class SubjectServlet extends HttpServlet {
 		req.setAttribute("dto", dto);
 		req.getRequestDispatcher("subject-edit.jsp").forward(req, res);
 	}
-	
-	
+
+
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doPost");
 		Subject subject = new Subject();
 		String subjectIdStr = req.getParameter("id");
-		
+
 		subject.setName(req.getParameter("name"));
 		if (Strings.isNullOrEmpty(subjectIdStr)) {
 			subjectDao.insert(subject);
@@ -76,7 +76,7 @@ public class SubjectServlet extends HttpServlet {
 		}
 		res.sendRedirect("/subject");
 	}
-	
+
 	@Override
 	public void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doDelete");
