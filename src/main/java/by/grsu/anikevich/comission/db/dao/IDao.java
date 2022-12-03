@@ -2,6 +2,8 @@ package by.grsu.anikevich.comission.db.dao;
 
 import java.util.List;
 
+import by.grsu.anikevich.comission.web.dto.TableStateDto;
+
 public interface IDao<ID, TYPE> {
 	void insert(TYPE t);
 
@@ -13,4 +15,7 @@ public interface IDao<ID, TYPE> {
 
 	List<TYPE> getAll();
 	List<TYPE> getAllwithId(ID id);
+	List<TYPE> find(TableStateDto tableStateDto);
+
+	int count();
 }

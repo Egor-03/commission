@@ -9,7 +9,10 @@ import java.util.List;
 
 import by.grsu.anikevich.comission.db.dao.AbstractDao;
 import by.grsu.anikevich.comission.db.dao.IDao;
+import by.grsu.anikevich.comission.db.model.Request;
 import by.grsu.anikevich.comission.db.model.Role;
+import by.grsu.anikevich.comission.web.dto.SortDto;
+import by.grsu.anikevich.comission.web.dto.TableStateDto;
 
 public class RoleDaoImpl extends AbstractDao implements IDao<Integer, Role> {
 
@@ -102,6 +105,45 @@ public class RoleDaoImpl extends AbstractDao implements IDao<Integer, Role> {
 	public List<Role> getAllwithId(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+
+	public List<Role> find(TableStateDto tableStateDto) {
+		List<Role> entitiesList = new ArrayList<>();
+		try (Connection c = createConnection()) {
+			StringBuilder sql = new StringBuilder("select * from role");
+
+			final SortDto sortDto = tableStateDto.getSort();
+			if (sortDto != null) {
+				sql.append(String.format(" order by %s %s", sortDto.getColumn(), resolveSortOrder(sortDto)));
+			}
+
+			sql.append(" limit " + tableStateDto.getItemsPerPage());
+			sql.append(" offset " + resolveOffset(tableStateDto));
+
+			System.out.println("searching Requests using SQL: " + sql);
+			ResultSet rs = c.createStatement().executeQuery(sql.toString());
+			while (rs.next()) {
+				Role entity = rowToEntity(rs);
+				entitiesList.add(entity);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("can't select Role entities", e);
+		}
+		return entitiesList;
+	}
+
+	@Override
+	public int count() {
+		try (Connection c = createConnection()) {
+			PreparedStatement pstmt = c.prepareStatement("select count(*) as c from role");
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+			return rs.getInt("c");
+		} catch (SQLException e) {
+			throw new RuntimeException("can't get Role count", e);
+		}
 	}
 
 }

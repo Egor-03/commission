@@ -15,11 +15,12 @@ import com.google.common.base.Strings;
 import by.grsu.anikevich.comission.db.dao.IDao;
 import by.grsu.anikevich.comission.db.dao.impl.StateDaoImpl;
 import by.grsu.anikevich.comission.db.model.State;
+import by.grsu.anikevich.comission.web.dto.TableStateDto;
 
 
 
 
-public class StateServlet extends HttpServlet {
+public class StateServlet extends AbstractListServlet {
 	private static final IDao<Integer, State> stateDao = StateDaoImpl.INSTANCE;
 
 	@Override
@@ -34,7 +35,10 @@ public class StateServlet extends HttpServlet {
 	}
 
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<State> states = stateDao.getAll();
+		int totalStates = stateDao.count(); // get count of ALL items
+
+		final TableStateDto tableStateDto = resolveTableStateDto(req, totalStates);
+		List<State> states = stateDao.find(tableStateDto);
 
 		List<State> dtos = states.stream().map((entity) -> {
 			State dto = new State();

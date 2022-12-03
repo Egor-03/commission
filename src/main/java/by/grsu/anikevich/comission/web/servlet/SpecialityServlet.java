@@ -19,8 +19,9 @@ import by.grsu.anikevich.comission.db.model.Faculty;
 import by.grsu.anikevich.comission.db.model.Speciality;
 import by.grsu.anikevich.comission.db.model.Subject;
 import by.grsu.anikevich.comission.web.dto.SpecialityDto;
+import by.grsu.anikevich.comission.web.dto.TableStateDto;
 
-public class SpecialityServlet extends HttpServlet {
+public class SpecialityServlet extends AbstractListServlet {
 	private static final IDao<Integer, Speciality> specialityDao = SpecialityDaoImpl.INSTANCE;
 	private static final IDao<Integer, Faculty> facultyDao = FacultyDaoImpl.INSTANCE;
 	private static final IDao<Integer, Subject> subjectDao = SubjectDaoImpl.INSTANCE;
@@ -40,10 +41,13 @@ public class SpecialityServlet extends HttpServlet {
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		String parameter = req.getParameter("facultyId");
+		int totalSpecialities = specialityDao.count(); // get count of ALL items
+
+		final TableStateDto tableStateDto = resolveTableStateDto(req, totalSpecialities);
 
 
 		if (Strings.isNullOrEmpty(parameter) ) {
-			List<Speciality> specialities = specialityDao.getAll();
+			List<Speciality> specialities = specialityDao.find(tableStateDto);
 			List<SpecialityDto> dtos = specialities.stream().map((entity) -> {
 				SpecialityDto dto = new SpecialityDto();
 				dto.setId(entity.getId());

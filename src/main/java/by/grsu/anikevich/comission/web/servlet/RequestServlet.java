@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -24,10 +24,11 @@ import by.grsu.anikevich.comission.db.model.Request;
 import by.grsu.anikevich.comission.db.model.Speciality;
 import by.grsu.anikevich.comission.db.model.State;
 import by.grsu.anikevich.comission.web.dto.RequestDto;
+import by.grsu.anikevich.comission.web.dto.TableStateDto;
 
 
 
-public class RequestServlet extends HttpServlet {
+public class RequestServlet extends  AbstractListServlet	 {
 	private static final IDao<Integer, Request> requestDao = RequestDaoImpl.INSTANCE;
 	private static final IDao<Integer, Speciality> specialityDao = SpecialityDaoImpl.INSTANCE;
 	private static final IDao<Integer, Persone> personeDao = PersoneDaoImpl.INSTANCE;
@@ -49,6 +50,9 @@ public class RequestServlet extends HttpServlet {
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String parameter = req.getParameter("facultyId");
 		String specialityId = req.getParameter("specialityId");
+		int totalRequests = requestDao.count(); // get count of ALL items
+
+		final TableStateDto tableStateDto = resolveTableStateDto(req, totalRequests);
 
 
 		if (!Strings.isNullOrEmpty(parameter) ) {
@@ -83,7 +87,7 @@ public class RequestServlet extends HttpServlet {
 
 		} else {
 			if (Strings.isNullOrEmpty(specialityId) ) {
-				List<Request> requests = requestDao.getAll();
+				List<Request> requests = requestDao.find(tableStateDto);
 				List<RequestDto> dtos = requests.stream().map((entity) -> {
 					RequestDto dto = new RequestDto();
 					dto.setId(entity.getId());

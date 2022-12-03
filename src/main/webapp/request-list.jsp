@@ -1,8 +1,11 @@
-<%@ page contentType="text/html" pageEncoding="ISO-8859-1"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <c:set var="pageTitle" value="Request list" scope="application"/>
+<%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
+<c:set var="pageUrl" value="/request" scope="page" />
 <t:wrapper>
+
 		
 	<div class="row">
 		<div class="col s12">
@@ -15,7 +18,7 @@
 	<table>
 		<thead>
 			<tr>
-				<th>id</th>
+				<th><mytaglib:sort-link pageUrl="${pageUrl}" column="id">id</mytaglib:sort-link></th>
 				<th>person</th>
 				<th>facultyName</th>
 				<th>speciality</th>
@@ -39,4 +42,5 @@
 	</table>
 	
 	
+<t:paging/>	
 </t:wrapper>

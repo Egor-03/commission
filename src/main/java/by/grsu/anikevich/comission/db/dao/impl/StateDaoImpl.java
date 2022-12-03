@@ -9,7 +9,10 @@ import java.util.List;
 
 import by.grsu.anikevich.comission.db.dao.AbstractDao;
 import by.grsu.anikevich.comission.db.dao.IDao;
+import by.grsu.anikevich.comission.db.model.Request;
 import by.grsu.anikevich.comission.db.model.State;
+import by.grsu.anikevich.comission.web.dto.SortDto;
+import by.grsu.anikevich.comission.web.dto.TableStateDto;
 
 public class StateDaoImpl extends AbstractDao implements IDao<Integer, State> {
 	public static final StateDaoImpl INSTANCE = new StateDaoImpl();
@@ -101,6 +104,44 @@ public class StateDaoImpl extends AbstractDao implements IDao<Integer, State> {
 	public List<State> getAllwithId(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<State> find(TableStateDto tableStateDto) {
+		List<State> entitiesList = new ArrayList<>();
+		try (Connection c = createConnection()) {
+			StringBuilder sql = new StringBuilder("select * from state");
+
+			final SortDto sortDto = tableStateDto.getSort();
+			if (sortDto != null) {
+				sql.append(String.format(" order by %s %s", sortDto.getColumn(), resolveSortOrder(sortDto)));
+			}
+
+			sql.append(" limit " + tableStateDto.getItemsPerPage());
+			sql.append(" offset " + resolveOffset(tableStateDto));
+
+			System.out.println("searching Requests using SQL: " + sql);
+			ResultSet rs = c.createStatement().executeQuery(sql.toString());
+			while (rs.next()) {
+				State entity = rowToEntity(rs);
+				entitiesList.add(entity);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("can't select State entities", e);
+		}
+		return entitiesList;
+	}
+
+	@Override
+	public int count() {
+		try (Connection c = createConnection()) {
+			PreparedStatement pstmt = c.prepareStatement("select count(*) as c from state");
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+			return rs.getInt("c");
+		} catch (SQLException e) {
+			throw new RuntimeException("can't get State count", e);
+		}
 	}
 
 }

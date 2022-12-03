@@ -14,10 +14,11 @@ import com.google.common.base.Strings;
 import by.grsu.anikevich.comission.db.dao.IDao;
 import by.grsu.anikevich.comission.db.dao.impl.FacultyDaoImpl;
 import by.grsu.anikevich.comission.db.model.Faculty;
+import by.grsu.anikevich.comission.web.dto.TableStateDto;
 
 
 
-public class FacultyServlet extends HttpServlet {
+public class FacultyServlet extends AbstractListServlet{
 	private static final IDao<Integer, Faculty> facultyDao = FacultyDaoImpl.INSTANCE;
 
 	@Override
@@ -32,7 +33,11 @@ public class FacultyServlet extends HttpServlet {
 	}
 
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<Faculty> faculties = facultyDao.getAll();
+		int totalFaculties = facultyDao.count(); // get count of ALL items
+
+		final TableStateDto tableStateDto = resolveTableStateDto(req, totalFaculties);
+		
+		List<Faculty> faculties = facultyDao.find(tableStateDto);
 
 		List<Faculty> dtos = faculties.stream().map((entity) -> {
 			Faculty dto = new Faculty();

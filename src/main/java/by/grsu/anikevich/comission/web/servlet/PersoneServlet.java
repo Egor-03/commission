@@ -17,8 +17,9 @@ import by.grsu.anikevich.comission.db.dao.impl.RoleDaoImpl;
 import by.grsu.anikevich.comission.db.model.Persone;
 import by.grsu.anikevich.comission.db.model.Role;
 import by.grsu.anikevich.comission.web.dto.PersoneDto;
+import by.grsu.anikevich.comission.web.dto.TableStateDto;
 
-public class PersoneServlet extends HttpServlet {
+public class PersoneServlet extends AbstractListServlet {
 	private static final IDao<Integer, Persone> personeDao = PersoneDaoImpl.INSTANCE;
 	private static final IDao<Integer, Role> roleDao = RoleDaoImpl.INSTANCE;
 
@@ -34,7 +35,10 @@ public class PersoneServlet extends HttpServlet {
 	}
 
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<Persone> persones = personeDao.getAll();
+		int totalPersones = personeDao.count(); // get count of ALL items
+
+		final TableStateDto tableStateDto = resolveTableStateDto(req, totalPersones);
+		List<Persone> persones = personeDao.find(tableStateDto);
 
 		List<PersoneDto> dtos = persones.stream().map((entity) -> {
 			PersoneDto dto = new PersoneDto();

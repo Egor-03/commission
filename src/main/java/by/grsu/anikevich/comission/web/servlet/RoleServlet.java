@@ -14,11 +14,12 @@ import com.google.common.base.Strings;
 import by.grsu.anikevich.comission.db.dao.IDao;
 import by.grsu.anikevich.comission.db.dao.impl.RoleDaoImpl;
 import by.grsu.anikevich.comission.db.model.Role;
+import by.grsu.anikevich.comission.web.dto.TableStateDto;
 
 
 
 
-public class RoleServlet extends HttpServlet {
+public class RoleServlet extends AbstractListServlet {
 	private static final IDao<Integer, Role> roleDao = RoleDaoImpl.INSTANCE;
 
 	@Override
@@ -33,7 +34,10 @@ public class RoleServlet extends HttpServlet {
 	}
 
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<Role> roles = roleDao.getAll();
+		int totalRoles = roleDao.count(); // get count of ALL items
+
+		final TableStateDto tableStateDto = resolveTableStateDto(req, totalRoles);
+		List<Role> roles = roleDao.find(tableStateDto);
 
 		List<Role> dtos = roles.stream().map((entity) -> {
 			Role dto = new Role();

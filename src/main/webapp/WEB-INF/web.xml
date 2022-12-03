@@ -99,4 +99,20 @@
 		<error-code>500</error-code>
 		<location>/500.jsp</location>
 	</error-page>
+		<error-page>
+		<error-code>401</error-code>
+		<location>/401.jsp</location>
+	</error-page>
+	
+	
+	<jsp-config>
+		<taglib>
+			<taglib-uri>my-custom-tags-uri</taglib-uri>
+			<taglib-location>/WEB-INF/my-tags.tld</taglib-location>
+		</taglib>
+		<jsp-property-group>
+			<url-pattern>*.jsp</url-pattern>
+			<page-encoding>UTF-8</page-encoding>
+		</jsp-property-group>
+	</jsp-config>
 </web-app>

@@ -15,11 +15,12 @@ import com.google.common.base.Strings;
 import by.grsu.anikevich.comission.db.dao.IDao;
 import by.grsu.anikevich.comission.db.dao.impl.SubjectDaoImpl;
 import by.grsu.anikevich.comission.db.model.Subject;
+import by.grsu.anikevich.comission.web.dto.TableStateDto;
 
 
 
 
-public class SubjectServlet extends HttpServlet {
+public class SubjectServlet extends AbstractListServlet {
 	private static final IDao<Integer,  Subject> subjectDao =  SubjectDaoImpl.INSTANCE;
 
 	@Override
@@ -34,7 +35,11 @@ public class SubjectServlet extends HttpServlet {
 	}
 
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<Subject> subjects = subjectDao.getAll();
+		int totalSubjects = subjectDao.count(); // get count of ALL items
+
+		final TableStateDto tableStateDto = resolveTableStateDto(req, totalSubjects);
+
+		List<Subject> subjects = subjectDao.find(tableStateDto);
 
 		List<Subject> dtos = subjects.stream().map((entity) -> {
 			Subject dto = new Subject();

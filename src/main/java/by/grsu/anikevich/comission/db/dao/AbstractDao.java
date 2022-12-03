@@ -14,6 +14,9 @@ import java.sql.Statement;
 
 import org.sqlite.SQLiteConfig;
 
+import by.grsu.anikevich.comission.web.dto.SortDto;
+import by.grsu.anikevich.comission.web.dto.TableStateDto;
+
 public class AbstractDao {
 	private static final String DB_FOLDER = "db-storage";
 	private static String DB_URL;
@@ -74,6 +77,15 @@ public class AbstractDao {
 			ResultSet rs = metaData.getTables(null, null, null, null);
 			return rs.next(); // assume DB exists if at least one table presents
 		}
+	}
+	protected int resolveOffset(TableStateDto dto) {
+		int offset = dto.getItemsPerPage() * (dto.getPage() - 1);
+		return dto.getTotalCount() < offset ? 0 : offset;
+
+	}
+
+	protected String resolveSortOrder(SortDto sortDto) {
+		return sortDto.isAscending() ? "asc" : "desc";
 	}
 
 }
