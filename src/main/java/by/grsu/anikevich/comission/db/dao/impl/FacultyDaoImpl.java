@@ -10,7 +10,6 @@ import java.util.List;
 import by.grsu.anikevich.comission.db.dao.AbstractDao;
 import by.grsu.anikevich.comission.db.dao.IDao;
 import by.grsu.anikevich.comission.db.model.Faculty;
-import by.grsu.anikevich.comission.db.model.Request;
 import by.grsu.anikevich.comission.web.dto.SortDto;
 import by.grsu.anikevich.comission.web.dto.TableStateDto;
 

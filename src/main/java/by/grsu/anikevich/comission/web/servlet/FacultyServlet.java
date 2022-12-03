@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -36,7 +35,7 @@ public class FacultyServlet extends AbstractListServlet{
 		int totalFaculties = facultyDao.count(); // get count of ALL items
 
 		final TableStateDto tableStateDto = resolveTableStateDto(req, totalFaculties);
-		
+
 		List<Faculty> faculties = facultyDao.find(tableStateDto);
 
 		List<Faculty> dtos = faculties.stream().map((entity) -> {
