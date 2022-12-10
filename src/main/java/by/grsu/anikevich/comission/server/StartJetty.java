@@ -1,4 +1,5 @@
 package by.grsu.anikevich.comission.server;
+
 import java.net.MalformedURLException;
 
 import org.eclipse.jetty.server.HttpConfiguration;
@@ -7,22 +8,9 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.webapp.WebAppContext;
 
-/**
- * Separate startup class for people that want to run the examples directly. Use
- * parameter -Dcom.sun.management.jmxremote to startup JMX (and e.g. connect
- * with jconsole).
- */
 public final class StartJetty {
-
 	private StartJetty() {
 	}
-
-	/**
-	 * Main function, starts the jetty server.
-	 *
-	 * @param args
-	 * @throws MalformedURLException
-	 */
 
 	public static void main(final String[] args) throws MalformedURLException {
 		startInstance(8081);

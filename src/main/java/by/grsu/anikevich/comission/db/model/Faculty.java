@@ -1,4 +1,4 @@
-package by.grsu.anikevich.comission.db.model;
+	package by.grsu.anikevich.comission.db.model;
 
 public class Faculty {
 	private Integer id;

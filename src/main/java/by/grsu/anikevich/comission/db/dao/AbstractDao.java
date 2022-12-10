@@ -20,7 +20,7 @@ import by.grsu.anikevich.comission.web.dto.TableStateDto;
 public class AbstractDao {
 	private static final String DB_FOLDER = "db-storage";
 	private static String DB_URL;
-	private static String DB_NAME;
+public static String DB_NAME;
 
 	public static void init(String dbName) {
 		DB_NAME = dbName;
